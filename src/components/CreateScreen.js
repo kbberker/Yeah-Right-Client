@@ -3,29 +3,44 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 
 class CreateScreen extends Component {
-  state = {}
+  state = {
+    playerNameInput: "",
+    gameNameInput: ""
+  }
 
-  createGame = () => {
+  handleClick = () => {
+    console.log(this.props);
+    let { playerNameInput, gameNameInput } = this.state
+    // this.props.createGame(playerNameInput, gameNameInput)
+  }
 
+  handlePlayerNameInputChange = (e) => {
+    this.setState({playerNameInput: e.target.value})
+  }
+
+  handleGameNameInputChange = (e) => {
+    this.setState({gameNameInput: e.target.value})
   }
 
   render() {
+    let { playerNameInput, gameNameInput } = this.state
     return (
       <Fragment>
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>
-            <Input type="text" name="playerName" id="playerName" placeholder="Kanye West" />
+            <Input type="text" name="playerName" id="playerName" placeholder="Kanye West" onChange={this.handlePlayerNameInputChange}/>
           </FormGroup>
           <FormGroup>
             <Label for="gameName">Game Name:</Label>
-            <Input type="text" name="gameName" id="gameName" placeholder="West Mansion" />
+            <Input type="text" name="gameName" id="gameName" placeholder="West Mansion" onChange={this.handleGameNameInputChange}/>
           </FormGroup>
-          <Button outline color="primary" onSubmit={() => this.createGame()}>CREATE GAME</Button>
         </Form>
+        <Button outline color="primary" onClick={() => this.props.createGame(playerNameInput, gameNameInput)}>CREATE GAME</Button>
       </Fragment>
     )
   }
+
 }
 
 export default CreateScreen;

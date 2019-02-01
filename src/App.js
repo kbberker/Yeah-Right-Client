@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import HomeScreen from "./components/HomeScreen"
 import CreateScreen from "./components/CreateScreen"
+import API from './API'
 
 class App extends Component {
   state={
-    currentScreen: "createjoin",
+    currentScreen: "create",
     gameScreens: ["home", "createjoin"]
   }
 
@@ -12,11 +13,17 @@ class App extends Component {
     switch (this.state.currentScreen) {
       case "home":
         return (<HomeScreen />)
-      case "createjoin":
-        return(<CreateScreen />)
+      case "create":
+        return(<CreateScreen createGame={this.createGame}/>)
       default:
         break;
     }
+  }
+
+  createGame = (playerName, gameName) => {
+    console.log("createGame in App")
+    debugger
+    API.createUserAndJoinGame(playerName, gameName)
   }
 
   render() {
