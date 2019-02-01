@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import HomeScreen from "./components/HomeScreen";
 
 class App extends Component {
+  state={
+    currentScreen: "home",
+    gameScreens: ["home", "createjoin"]
+  }
+
+
+
   render() {
+    let { currentScreen } = this.state
+
     return (
-      <h1>Yeah Right!</h1>
+      <div>
+        <h1>Yeah Right!</h1>
+        <HomeScreen currentScreen={currentScreen} />
+      </div>
     )
   }
 }
