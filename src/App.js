@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
-import HomeScreen from "./components/HomeScreen";
+import React, { Component } from 'react'
+import HomeScreen from "./components/HomeScreen"
+import CreateScreen from "./components/CreateScreen"
 
 class App extends Component {
   state={
-    currentScreen: "home",
+    currentScreen: "createjoin",
     gameScreens: ["home", "createjoin"]
   }
 
-
+  setGameScreen = () => {
+    switch (this.state.currentScreen) {
+      case "home":
+        return (<HomeScreen />)
+      case "createjoin":
+        return(<CreateScreen />)
+      default:
+        break;
+    }
+  }
 
   render() {
-    let { currentScreen } = this.state
-
     return (
       <div>
         <h1>Yeah Right!</h1>
-        <HomeScreen currentScreen={currentScreen} />
+        {this.setGameScreen()}
       </div>
     )
   }
