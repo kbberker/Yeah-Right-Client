@@ -4,6 +4,7 @@ class API {
     this.signinURL = this.baseURL + '/signin'
   }
 
+
   static signin(user) {
     return fetch(this.signinURL, {
       method: 'POST',
@@ -34,6 +35,19 @@ class API {
       body: JSON.stringify(user)
     }).then(resp => resp.json())
   }
+
+  static createUserAndJoinGame(playerName, gameName) {
+    console.log({"createUserAndJoinGame": [playerName, gameName]})
+    // return fetch("http://localhost:3000/api/v1/players", {
+    //   method: "POST",
+    //   headers: { 'Content-Type': "application/json"},
+    //   body: JSON.stringify({
+    //     name: "Kenan",
+    //     game_name: "B-dash"
+    //   })
+    // }).then(resp => resp.json())
+  }
+    
 
 }
 
