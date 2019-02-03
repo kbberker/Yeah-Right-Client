@@ -36,8 +36,8 @@ class API {
     }).then(resp => resp.json())
   }
 
-  static createUserAndJoinGame(playerName, gameName) {
-    console.log({"createUserAndJoinGame": [playerName, gameName]})
+  static createPlayerAndJoinGame(playerName, gameName) {
+    console.log({"createPlayerAndJoinGame": [playerName, gameName]})
     return fetch("http://localhost:3001/api/v1/players", {
       method: "POST",
       headers: { 'Content-Type': "application/json"},
