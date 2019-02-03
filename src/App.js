@@ -5,14 +5,15 @@ import API from './API'
 
 class App extends Component {
   state={
-    currentScreen: "create",
-    gameScreens: ["home", "createjoin"]
+    currentScreen: "home",
+    gameScreens: ["home", "create", "waiting"],
+    gamesPlayers: [],
   }
 
   setGameScreen = () => {
     switch (this.state.currentScreen) {
       case "home":
-        return (<HomeScreen />)
+        return (<HomeScreen createOrJoin={this.createOrJoin}/>)
       case "create":
         return(<CreateScreen createGame={this.createGame}/>)
       default:
@@ -20,10 +21,16 @@ class App extends Component {
     }
   }
 
+  createOrJoin = (nextScreen) => {
+    this.setState({currentScreen: nextScreen})
+  }
+
   createGame = (playerName, gameName) => {
-    console.log("createGame in App")
-    debugger
     API.createUserAndJoinGame(playerName, gameName)
+      .then(data => {
+        const newPlayerAdded = [...this.state.gamesPlayers, data.player]
+        this.setState({gamesPlayers: newPlayerAdded})
+      })
   }
 
   render() {

@@ -8,11 +8,6 @@ class CreateScreen extends Component {
     gameNameInput: ""
   }
 
-  handleClick = () => {
-    console.log(this.props);
-    let { playerNameInput, gameNameInput } = this.state
-    // this.props.createGame(playerNameInput, gameNameInput)
-  }
 
   handlePlayerNameInputChange = (e) => {
     this.setState({playerNameInput: e.target.value})
@@ -29,7 +24,7 @@ class CreateScreen extends Component {
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>
-            <Input type="text" name="playerName" id="playerName" placeholder="Kanye West" onChange={this.handlePlayerNameInputChange}/>
+            <Input type="text" name="playerName" id="playerName" placeholder="Kanye" onChange={this.handlePlayerNameInputChange}/>
           </FormGroup>
           <FormGroup>
             <Label for="gameName">Game Name:</Label>

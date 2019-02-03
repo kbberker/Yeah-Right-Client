@@ -38,14 +38,14 @@ class API {
 
   static createUserAndJoinGame(playerName, gameName) {
     console.log({"createUserAndJoinGame": [playerName, gameName]})
-    // return fetch("http://localhost:3000/api/v1/players", {
-    //   method: "POST",
-    //   headers: { 'Content-Type': "application/json"},
-    //   body: JSON.stringify({
-    //     name: "Kenan",
-    //     game_name: "B-dash"
-    //   })
-    // }).then(resp => resp.json())
+    return fetch("http://localhost:3001/api/v1/players", {
+      method: "POST",
+      headers: { 'Content-Type': "application/json"},
+      body: JSON.stringify({
+        name: playerName,
+        game_name: gameName
+      })
+    }).then(resp => resp.json())
   }
     
 
