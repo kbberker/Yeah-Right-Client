@@ -9,6 +9,15 @@ class API {
       .then(resp => resp.json())
   }
 
+  static getPlayersInGame(gameId) {
+    return fetch("http://localhost:3001/api/v1/games_players", {
+      method: "POST",
+      headers: { 'Content-Type': "application/json" },
+      body: JSON.stringify({ game_id: gameId })
+    })
+      .then(resp => resp.json())
+  }
+
 
   static createPlayerAndJoinGame(playerName, gameName) {
     console.log({"createPlayerAndJoinGame": [playerName, gameName]})

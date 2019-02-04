@@ -34,7 +34,8 @@ class JoinScreen extends Component {
       return <Button 
         outline color="primary" 
         key={game.id}
-        onClick={() => this.props.createGame(this.state.playerNameInput, game.name)}>
+        onClick={() => this.props.createGame(this.state.playerNameInput, game.name)}
+        >
         "{game.name}"
       </Button>
     })
