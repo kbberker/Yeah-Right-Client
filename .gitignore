@@ -84,4 +84,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Files I don't need to be saved
+src/scrap-code/
+
 # End of https://www.gitignore.io/api/node
