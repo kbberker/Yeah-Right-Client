@@ -29,6 +29,7 @@ class JoinScreen extends Component {
       .then(listOfGames => this.renderGameButtons(listOfGames))
   }
 
+  // TODO Add button which refreshes game
   renderGameButtons = () => {
     return this.state.listOfGames.map(game => {
       return <Button 

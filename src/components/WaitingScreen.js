@@ -27,7 +27,7 @@ class WaitingScreen extends Component {
     return (
       <div>
         <ListGroup>
-          {this.renderPlayers()} 
+          {this.renderPlayers()}
         </ListGroup>
         <Button
           outline
@@ -39,9 +39,16 @@ class WaitingScreen extends Component {
         <Button
           outline
           color="primary"
-          onClick={() => this.updatePlayerList()}
+          onClick={() => this.props.startGame("answer", this.state.playersInGame)}
         >
           START GAME
+        </Button>
+        <Button
+          outline
+          color="primary"
+          onClick={() => this.props.joinGame("answer")}
+        >
+          IS GAME READY?
         </Button>
       </div>
     )
