@@ -5,6 +5,7 @@ import JoinScreen from "./components/JoinScreen"
 import WaitingScreen from "./components/WaitingScreen"
 import AnswerScreen from "./components/AnswerScreen"
 import AnswerWaitingScreen from "./components/AnswerWaitingScreen"
+import VotingScreen from "./components/VotingScreen"
 import API from './API'
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
     gameId: 0, // ! default should be 0
     currentRound: {},
     player: {},
+    answers: [],
   }
 
   componentDidUpdate() {
@@ -36,7 +38,9 @@ class App extends Component {
       case "answer":
         return (<AnswerScreen submitAnswer={this.submitAnswer}/>)
       case "answer-waiting":
-        return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id}/>)        
+        return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
+      case "voting":
+        return (<VotingScreen answers={this.state.answers} players={this.state.players}/>)        
       default:
         break;
     }
@@ -55,26 +59,29 @@ class App extends Component {
 
   startGame = (newScreen, gamesPlayers) => {
     // const dasher = gamesPlayers[Math.floor(Math.random()*gamesPlayers.length)]
-    
-    // TODO Create a round for the game
     API.createNewRound(this.state.gameId)
-
-    // TODO Set a player as the Dasher
-      // TODO Send the new dasher and all the players to API call
-
-    // TODO Change screen to answer screen
-      .then(round => this.setState({currentRound:round, currentScreen: "answer"}))
+      .then(round => this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players}))
   }
 
-  joinGame = (newScreen) => {
+  joinGame = (nextScreen) => {
     API.hasGameStarted(this.state.gameId)
-      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({currentScreen: newScreen, currentRound: gameRounds[gameRounds.length -1]}))
+      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({currentScreen: nextScreen, currentRound: gameRounds[gameRounds.length -1]}))
   }
 
   submitAnswer = (answerText) => {
-    // TODO Fetch to API with answerText, currentRound, player
     API.submitAnswer(answerText, this.state.currentRound.id, this.state.player.id)
       .then(this.setState({currentScreen: "answer-waiting"}))
+  }
+
+  renderVotingScreen = (roundsAnswers) => {
+    // TODO Set state.answers from AnswerWaitingScreen
+    // TODO Change currentScreen to voting
+    // TODO Make sure answers and players are sent as props to VotingScreen
+    this.setState({
+      answers: roundsAnswers,
+      currentScreen: "voting"
+    })
+    
   }
 
   render() {

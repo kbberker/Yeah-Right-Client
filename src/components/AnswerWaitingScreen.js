@@ -49,14 +49,14 @@ class AnswerWaitingScreen extends Component {
           HAS EVERYONE ANSWERED?
         </Button>
         {this.state.answers.length === this.state.players.length 
-        ? <Button
-          outline
-          color="primary"
-          onClick={() => this.props.startGame("answer", this.state.playersInGame)}
-        >
-          SEE ANSWERS
-        </Button>
-        : null
+          ? <Button
+            outline
+            color="primary"
+            onClick={() => this.props.renderVotingScreen(this.state.answers)}
+          >
+            SEE ANSWERS
+          </Button>
+          : null
         }
       </div>
     )
