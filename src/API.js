@@ -57,6 +57,11 @@ class API {
     }).then(resp => resp.json())
   }
 
+  static getRoundAnswers(roundId) {
+    return fetch(`http://localhost:3001/api/v1/rounds/${roundId}`)
+      .then(resp => resp.json())
+  }
+
 }
 
 API.init()

@@ -36,7 +36,7 @@ class App extends Component {
       case "answer":
         return (<AnswerScreen submitAnswer={this.submitAnswer}/>)
       case "answer-waiting":
-        return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} />)        
+        return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id}/>)        
       default:
         break;
     }
@@ -68,7 +68,7 @@ class App extends Component {
 
   joinGame = (newScreen) => {
     API.hasGameStarted(this.state.gameId)
-      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({currentScreen: newScreen}))
+      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({currentScreen: newScreen, currentRound: gameRounds[gameRounds.length -1]}))
   }
 
   submitAnswer = (answerText) => {
