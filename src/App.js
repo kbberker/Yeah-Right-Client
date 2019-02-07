@@ -40,7 +40,7 @@ class App extends Component {
       case "answer-waiting":
         return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
       case "voting":
-        return (<VotingScreen answers={this.state.answers} players={this.state.players}/>)        
+        return (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers}/>)
       default:
         break;
     }
@@ -60,12 +60,15 @@ class App extends Component {
   startGame = (newScreen, gamesPlayers) => {
     // const dasher = gamesPlayers[Math.floor(Math.random()*gamesPlayers.length)]
     API.createNewRound(this.state.gameId)
-      .then(round => this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players}))
+      .then(round => {
+        debugger
+        this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players})
+      })
   }
 
   joinGame = (nextScreen) => {
     API.hasGameStarted(this.state.gameId)
-      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({currentScreen: nextScreen, currentRound: gameRounds[gameRounds.length -1]}))
+      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({ currentScreen: nextScreen, currentRound: gameRounds[gameRounds.length - 1], gamesPlayers: gameRounds[gameRounds.length - 1].players}))
   }
 
   submitAnswer = (answerText) => {

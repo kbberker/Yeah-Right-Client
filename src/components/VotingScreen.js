@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Button } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 
 
 // TODO Show a list of answers with a button next to it
@@ -12,6 +12,8 @@ class VotingScreen extends Component {
     answers: [],
     showVoteScreen: false,
     answerToVoteOn: {},
+    votes: {},
+    players: [],
   }
 
   componentDidMount() {
@@ -25,6 +27,7 @@ class VotingScreen extends Component {
     let ctr = copyOfAnswers.length
     let temp
     let index
+    let votes = {}
 
     while (ctr > 0){
       index = Math.floor(Math.random() * ctr)
@@ -33,8 +36,16 @@ class VotingScreen extends Component {
       copyOfAnswers[ctr] = copyOfAnswers[index]
       copyOfAnswers[index] = temp
     }
+
+    copyOfAnswers.map(answer => {
+      votes[answer.id] = []
+    })
     debugger
-    this.setState({answers: copyOfAnswers})
+    this.setState({
+      answers: copyOfAnswers,
+      votes: votes,
+      players: this.props.players
+    })
   }
 
   renderAnswers = () => {
@@ -47,12 +58,29 @@ class VotingScreen extends Component {
   }
 
   renderAnswerVotes = () => {
-    return this.state.answers.map(answer => {
-      return <Fragment>
-        <p>{answer.text}</p>
-        <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>primary</Button>
-      </Fragment>
-    })
+    return(
+      <ButtonGroup>
+        {this.state.players.map(player => {
+        return <Fragment>
+          <Button 
+            color="primary" 
+            onClick={() => this.onCheckboxBtnClick(player)} 
+            active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}>{player.name}</Button>
+        </Fragment>
+        })}
+      </ButtonGroup> 
+    )
+  }
+
+  onCheckboxBtnClick = (selectedPlayer) => {
+    const { answerToVoteOn } = this.state
+    const index = this.state.votes[answerToVoteOn.id].indexOf(selectedPlayer);
+    if (index < 0) {
+      this.state.votes[answerToVoteOn.id].push(selectedPlayer);
+    } else {
+      this.state.votes[answerToVoteOn.id].splice(index, 1);
+    }
+    this.setState({ votes: { ...this.state.votes, [answerToVoteOn.id]: this.state.votes[answerToVoteOn.id]}})
   }
 
   toggleAddVotesToAnswerScreen = (answer) => {
