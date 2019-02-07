@@ -52,23 +52,27 @@ class VotingScreen extends Component {
     return this.state.answers.map(answer => {
       return (<Fragment>
         <p>{answer.text}</p> 
-        <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>primary</Button>
+        <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
       </Fragment>)
     })
   }
 
   renderAnswerVotes = () => {
     return(
-      <ButtonGroup>
-        {this.state.players.map(player => {
-        return <Fragment>
-          <Button 
-            color="primary" 
-            onClick={() => this.onCheckboxBtnClick(player)} 
-            active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}>{player.name}</Button>
-        </Fragment>
-        })}
-      </ButtonGroup> 
+      <Fragment>
+        <h6>Votes for: "{`${this.state.answerToVoteOn.text}`}"</h6>
+        <ButtonGroup>
+          {this.state.players.map(player => {
+          return <Fragment>
+            <Button 
+              color="primary" 
+              onClick={() => this.onCheckboxBtnClick(player)} 
+              active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}>{player.name}</Button>
+          </Fragment>
+          })}
+        </ButtonGroup>
+        <Button color="secondary" onClick={() => this.toggleAddVotesToAnswerScreen(this.state.answerToVoteOn)}>Go Back To Answers</Button>
+      </Fragment>
     )
   }
 
