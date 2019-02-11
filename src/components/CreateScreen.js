@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { ActionCableConsumer } from 'react-actioncable-provider';
+
 
 
 class CreateScreen extends Component {
@@ -17,10 +19,25 @@ class CreateScreen extends Component {
     this.setState({gameNameInput: e.target.value})
   }
 
+  handleReceivedGame = (response, props) => {
+    const { game } = response;
+    const { playerNameInput, gameNameInput } = this.state
+    const playersInGame = response.game.players.filter(player => (player.name === playerNameInput))
+    debugger
+    if (game.name === gameNameInput && playersInGame.length !== 0) {
+      props.changeGameScreenToWaiting(game, playersInGame[0])
+    }
+
+  };
+
   render() {
     let { playerNameInput, gameNameInput } = this.state
     return (
       <Fragment>
+        <ActionCableConsumer
+          channel='GamesChannel'
+          onReceived={(response) => this.handleReceivedGame(response, this.props)}
+        />
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>

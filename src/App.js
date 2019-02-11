@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import HomeScreen from "./components/HomeScreen"
 import CreateScreen from "./components/CreateScreen"
 import JoinScreen from "./components/JoinScreen"
@@ -50,12 +51,15 @@ class App extends Component {
     this.setState({currentScreen: nextScreen})
   }
 
+  changeGameScreenToWaiting = (game, player) => {
+    this.setState({
+      currentScreen: "waiting",
+       
+    })
+  }
+
   createGame = (playerName, gameName) => {
     API.createPlayerAndJoinGame(playerName, gameName)
-      .then(player => {
-        console.log(player)
-        this.setState({gameId: player.game.id, player: player, currentScreen: "waiting"})
-      })
   }
 
   startGame = (newScreen, gamesPlayers) => {

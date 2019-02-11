@@ -27,7 +27,7 @@ class API {
         name: playerName,
         game_name: gameName
       })
-    }).then(resp => resp.json())
+    })
   }
     
   static createNewRound(gameId) {
