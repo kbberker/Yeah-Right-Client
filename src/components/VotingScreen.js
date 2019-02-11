@@ -23,7 +23,6 @@ class VotingScreen extends Component {
   shuffleAnswersArray = () => {
     let { answers } = this.props
     let copyOfAnswers = answers.slice(0)
-    debugger
     let ctr = copyOfAnswers.length
     let temp
     let index
@@ -40,7 +39,6 @@ class VotingScreen extends Component {
     copyOfAnswers.map(answer => {
       votes[answer.id] = []
     })
-    debugger
     this.setState({
       answers: copyOfAnswers,
       votes: votes,

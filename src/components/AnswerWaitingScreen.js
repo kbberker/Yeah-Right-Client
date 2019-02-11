@@ -15,7 +15,6 @@ class AnswerWaitingScreen extends Component {
     // // TODO Puts answers into this.state.answers
     API.getRoundAnswers(this.props.currentRoundId)
       .then(round => {
-        debugger
         this.setState({ answers: round.answers, players: round.players })
       })
   }

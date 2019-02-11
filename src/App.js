@@ -53,6 +53,7 @@ class App extends Component {
   createGame = (playerName, gameName) => {
     API.createPlayerAndJoinGame(playerName, gameName)
       .then(player => {
+        console.log(player)
         this.setState({gameId: player.game.id, player: player, currentScreen: "waiting"})
       })
   }
@@ -61,7 +62,6 @@ class App extends Component {
     // const dasher = gamesPlayers[Math.floor(Math.random()*gamesPlayers.length)]
     API.createNewRound(this.state.gameId)
       .then(round => {
-        debugger
         this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players})
       })
   }

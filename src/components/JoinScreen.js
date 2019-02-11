@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { ActionCable } from 'react-actioncable-provider';
 import API from '../API'
 
 
@@ -19,15 +20,22 @@ class JoinScreen extends Component {
       })
   }
 
-  handlePlayerNameInputChange = (e) => {
-    this.setState({ playerNameInput: e.target.value })
-  }
-
-
   getGameNames = () => {
     API.getListOfGames()
       .then(listOfGames => this.renderGameButtons(listOfGames))
   }
+
+
+  handlePlayerNameInputChange = (e) => {
+    this.setState({ playerNameInput: e.target.value })
+  }
+
+  handleReceivedGame = response => {
+    const { game } = response;
+    this.setState({
+      listOfGames: [...this.state.listOfGames, game]
+    });
+  };
 
   // TODO Add button which refreshes game
   renderGameButtons = () => {
@@ -43,8 +51,16 @@ class JoinScreen extends Component {
   }
 
   render() {
+    const { listOfGames } = this.state
     return (
       <Fragment>
+        <ActionCable 
+          channel='GamesChannel'
+          onReceived={this.handleReceivedGame}
+        />
+        {this.state.listOfGames.length
+          ? null
+          : null}
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>
