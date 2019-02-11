@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import API from '../API'
 
 
@@ -54,7 +54,7 @@ class JoinScreen extends Component {
     const { listOfGames } = this.state
     return (
       <Fragment>
-        <ActionCable 
+        <ActionCableConsumer
           channel='GamesChannel'
           onReceived={this.handleReceivedGame}
         />
