@@ -19,15 +19,14 @@ class CreateScreen extends Component {
     this.setState({gameNameInput: e.target.value})
   }
 
-  handleReceivedGame = (response, props) => {
+  handleReceivedGame = (response, changeToWaiting) => {
     const { game } = response;
     const { playerNameInput, gameNameInput } = this.state
     const playersInGame = response.game.players.filter(player => (player.name === playerNameInput))
     debugger
     if (game.name === gameNameInput && playersInGame.length !== 0) {
-      props.changeGameScreenToWaiting(game, playersInGame[0])
+      changeToWaiting(game, playersInGame[0])
     }
-
   };
 
   render() {
@@ -36,7 +35,7 @@ class CreateScreen extends Component {
       <Fragment>
         <ActionCableConsumer
           channel='GamesChannel'
-          onReceived={(response) => this.handleReceivedGame(response, this.props)}
+          onReceived={(response) => this.handleReceivedGame(response, this.props.changeGameScreenToWaiting)}
         />
         <Form>
           <FormGroup>

@@ -9,6 +9,8 @@ class JoinScreen extends Component {
   state = {
     playerNameInput: "",
     listOfGames: [],
+    chosenGame: "",
+    playerName: "",
   }
 
   componentDidMount() {
@@ -30,11 +32,14 @@ class JoinScreen extends Component {
     this.setState({ playerNameInput: e.target.value })
   }
 
-  handleReceivedGame = response => {
-    const { game } = response;
-    this.setState({
-      listOfGames: [...this.state.listOfGames, game]
-    });
+  handleReceivedGame = (response, changeToWaiting) => {
+    const { game } = response
+    const { playerName, chosenGame } = this.state
+    const playersInGame = response.game.players.filter(player => (player.name === playerName))
+    debugger
+    if (game.name === chosenGame.name && playersInGame.length !== 0) {
+      changeToWaiting(game, playersInGame[0])
+    }
   };
 
   // TODO Add button which refreshes game
@@ -43,9 +48,12 @@ class JoinScreen extends Component {
       return <Button 
         outline color="primary" 
         key={game.id}
-        onClick={() => this.props.createGame(this.state.playerNameInput, game.name)}
+        onClick={() => {
+          this.setState({ chosenGame: game, playerName: this.state.playerNameInput})
+          this.props.createGame(this.state.playerNameInput, game.name)
+        }}
         >
-        "{game.name}"
+        {game.name}
       </Button>
     })
   }
@@ -56,7 +64,7 @@ class JoinScreen extends Component {
       <Fragment>
         <ActionCableConsumer
           channel='GamesChannel'
-          onReceived={this.handleReceivedGame}
+          onReceived={(response) => this.handleReceivedGame(response, this.props.changeGameScreenToWaiting)}
         />
         {this.state.listOfGames.length
           ? null
