@@ -36,13 +36,13 @@ class JoinScreen extends Component {
     const { game } = response
     const { playerName, chosenGame } = this.state
     const playersInGame = response.game.players.filter(player => (player.name === playerName))
-    debugger
     if (game.name === chosenGame.name && playersInGame.length !== 0) {
       changeToWaiting(game, playersInGame[0])
+    } else {
+      this.setState({ listOfGames: [...this.state.listOfGames, game] })
     }
   };
 
-  // TODO Add button which refreshes game
   renderGameButtons = () => {
     return this.state.listOfGames.map(game => {
       return <Button 

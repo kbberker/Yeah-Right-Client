@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
 import API from '../API'
+import Cable from './Cable'
 
 
 class WaitingScreen extends Component {
@@ -25,21 +26,33 @@ class WaitingScreen extends Component {
     return this.state.playersInGame.map(player => <ListGroupItem>{player.name}</ListGroupItem>)
   }
 
-  handleReceivedGame = (response, gameId) => {
+  handleReceivedGame = (response, gameId, joinGame) => {
     const { game } = response
-    // const { playerName, chosenGame } = this.state
-    // const playersInGame = response.game.players.filter(player => (player.name === playerName))
-    // debugger
-    if (game.id === gameId) {
-      this.setState({ playersInGame: game.players })    }
-  };
+    if (game.id === gameId && game.rounds.length === 0) {
+      this.setState({ playersInGame: game.players })    
+    } else if (game.id === gameId && game.rounds.length >= 1) {
+      joinGame(game.rounds[game.rounds.length - 1], game.players)
+    }
+  }
+
+  handleReceivedRound = (response, gameId, joinGame) => {
+    const { round } = response
+    console.log(round)
+    if (round.game_id === gameId) {
+      joinGame(round, round.players)
+    } 
+  }
 
   render() { 
     return (
       <div>
         <ActionCableConsumer
           channel='GamesChannel'
-          onReceived={(response) => this.handleReceivedGame(response, this.props.gameId)}
+          onReceived={(response) => this.handleReceivedGame(response, this.props.gameId, this.props.joinGame)}
+        />
+        <ActionCableConsumer
+          channel="RoundsChannel"
+          onReceived={(response) => this.handleReceivedRound(response, this.props.gameId, this.props.joinGame)}
         />
         <ListGroup>
           {this.renderPlayers()}

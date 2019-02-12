@@ -52,11 +52,10 @@ class App extends Component {
   }
 
   changeGameScreenToWaiting = (game, player) => {
-    debugger
     this.setState({
       currentScreen: "waiting",
-       game: game,
-       player: player
+      game: game,
+      player: player
     })
   }
 
@@ -64,17 +63,17 @@ class App extends Component {
     API.createPlayerAndJoinGame(playerName, gameName)
   }
 
-  startGame = (newScreen, gamesPlayers) => {
-    // const dasher = gamesPlayers[Math.floor(Math.random()*gamesPlayers.length)]
+  startGame = () => {
     API.createNewRound(this.state.game.id)
-      .then(round => {
-        this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players})
-      })
   }
 
-  joinGame = (nextScreen) => {
-    API.hasGameStarted(this.state.game.id)
-      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({ currentScreen: nextScreen, currentRound: gameRounds[gameRounds.length - 1], gamesPlayers: gameRounds[gameRounds.length - 1].players}))
+  joinGame = (gameRound, players) => {
+    debugger
+    this.setState({ 
+      currentScreen: "answer", 
+      currentRound: gameRound, 
+      gamesPlayers: players
+    })
   }
 
   submitAnswer = (answerText) => {

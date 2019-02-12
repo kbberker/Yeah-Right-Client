@@ -37,7 +37,7 @@ class API {
       body: JSON.stringify({
         game_id: gameId
       })
-    }).then(resp => resp.json())
+    })
   }
 
   static hasGameStarted(gameId) {

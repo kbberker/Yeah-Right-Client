@@ -23,7 +23,6 @@ class CreateScreen extends Component {
     const { game } = response;
     const { playerNameInput, gameNameInput } = this.state
     const playersInGame = response.game.players.filter(player => (player.name === playerNameInput))
-    debugger
     if (game.name === gameNameInput && playersInGame.length !== 0) {
       changeToWaiting(game, playersInGame[0])
     }
