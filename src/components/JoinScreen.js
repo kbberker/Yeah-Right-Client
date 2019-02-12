@@ -24,9 +24,9 @@ class JoinScreen extends Component {
   }
 
 
-  getGameNames = () => {
+  getListOfGames = () => {
     API.getListOfGames()
-      .then(listOfGames => this.renderGameButtons(listOfGames))
+      .then(listOfGames => this.setState({listOfGames: listOfGames}))
   }
 
   // TODO Add button which refreshes game
@@ -37,7 +37,7 @@ class JoinScreen extends Component {
         key={game.id}
         onClick={() => this.props.createGame(this.state.playerNameInput, game.name)}
         >
-        "{game.name}"
+        {game.name}
       </Button>
     })
   }
@@ -54,6 +54,12 @@ class JoinScreen extends Component {
         {this.state.playerNameInput === ""
           ? "Enter your name and available games will appear below"
           : this.renderGameButtons()}
+        <Button
+          outline color="primary"
+          onClick={() => this.getListOfGames()}
+        >
+          UPDATE LIST OF GAMES
+        </Button>
       </Fragment>
     )
   }

@@ -10,11 +10,11 @@ import API from './API'
 
 class App extends Component {
   state={
-    currentScreen: "home", // ! default should be "home"
-    gameScreens: ["home", "create", "waiting"],
-    gamesPlayers: [],
-    gameId: 0, // ! default should be 0
+    currentDasher: {},
     currentRound: {},
+    currentScreen: "home",
+    game: {}, 
+    gamesPlayers: [],
     player: {},
     answers: [],
   }
@@ -25,6 +25,7 @@ class App extends Component {
   }
 
   setGameScreen = () => {
+    const { currentDasher, player } = this.state
     // ? Might be better to change this based on an argument then state
     switch (this.state.currentScreen) {
       case "home":
@@ -34,9 +35,11 @@ class App extends Component {
       case "join":
         return(<JoinScreen createGame={this.createGame}/>)
       case "waiting":
-        return (<WaitingScreen gameId={this.state.gameId} startGame={this.startGame} joinGame={this.joinGame}/>)
+        return (<WaitingScreen gameId={this.state.game.id} startGame={this.startGame} joinGame={this.joinGame}/>)
       case "answer":
-        return (<AnswerScreen submitAnswer={this.submitAnswer}/>)
+        return currentDasher.id === player.id 
+        ? (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={true}/>)
+        : (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={false}/>)
       case "answer-waiting":
         return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
       case "voting":
@@ -53,22 +56,41 @@ class App extends Component {
   createGame = (playerName, gameName) => {
     API.createPlayerAndJoinGame(playerName, gameName)
       .then(player => {
-        this.setState({gameId: player.game.id, player: player, currentScreen: "waiting"})
+        this.setState({game: player.game, player: player, currentScreen: "waiting"})
       })
   }
 
-  startGame = (newScreen, gamesPlayers) => {
-    // const dasher = gamesPlayers[Math.floor(Math.random()*gamesPlayers.length)]
-    API.createNewRound(this.state.gameId)
-      .then(round => {
+  startGame = () => {
+    API.createNewRound(this.state.game.id)
+    .then(round => {
+      console.log({"App.startGame round returned": round})
+      const newDasher = round.players[Math.floor(Math.random()*round.players.length)]
+      this.setState({currentRound:round, currentScreen: "answer"})
+      return newDasher
+    })
+      .then(newDasher => API.setDasher(newDasher))
+      .then(resp => {
         debugger
-        this.setState({currentRound:round, currentScreen: "answer", gamesPlayers: round.players})
+        this.setState({
+          currentDasher: resp.new_dasher,
+          gamesPlayers: [...resp.non_dashers, resp.new_dasher]
+        })
       })
   }
 
-  joinGame = (nextScreen) => {
-    API.hasGameStarted(this.state.gameId)
-      .then(gameRounds => gameRounds.length === 0 ? alert("Not ready yet.") : this.setState({ currentScreen: nextScreen, currentRound: gameRounds[gameRounds.length - 1], gamesPlayers: gameRounds[gameRounds.length - 1].players}))
+  joinGame = () => {
+    API.hasGameStarted(this.state.game.id)
+      .then(gameRounds => {
+        debugger
+        gameRounds.length === 0 
+          ? alert("Not ready yet.") 
+          : this.setState({
+            currentScreen: "answer", 
+            currentRound: gameRounds[gameRounds.length - 1], 
+            gamesPlayers: gameRounds[gameRounds.length - 1].players,
+            currentDasher: gameRounds[gameRounds.length - 1].players.filter(player => player.is_dasher === true)[0]
+          })
+        })
   }
 
   submitAnswer = (answerText) => {

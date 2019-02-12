@@ -20,7 +20,9 @@ class WaitingScreen extends Component {
   }
 
   renderPlayers = () => {
-    return this.state.playersInGame.map(player => <ListGroupItem>{player.name}</ListGroupItem>)
+    return this.state.playersInGame.map(player => {
+      return <ListGroupItem>{player.name}</ListGroupItem>
+    })
   }
 
   render() { 
@@ -39,14 +41,14 @@ class WaitingScreen extends Component {
         <Button
           outline
           color="primary"
-          onClick={() => this.props.startGame("answer", this.state.playersInGame)}
+          onClick={() => this.props.startGame()}
         >
           START GAME
         </Button>
         <Button
           outline
           color="primary"
-          onClick={() => this.props.joinGame("answer")}
+          onClick={() => this.props.joinGame()}
         >
           IS GAME READY?
         </Button>
