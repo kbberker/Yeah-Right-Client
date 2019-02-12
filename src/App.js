@@ -41,7 +41,7 @@ class App extends Component {
         ? (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={true}/>)
         : (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={false}/>)
       case "answer-waiting":
-        return (<AnswerWaitingScreen submitAnswer={this.submitAnswer} currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
+        return (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
       case "voting":
         return (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers}/>)
       default:

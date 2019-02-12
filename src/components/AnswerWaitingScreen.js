@@ -10,17 +10,17 @@ class AnswerWaitingScreen extends Component {
     message: "",
   }
 
+  pollPlayersWhoveAnswered = ""
+
   componentDidMount() {
-    // // TODO Get answers from API based on current round
-    // // TODO Puts answers into this.state.answers
     API.getRoundAnswers(this.props.currentRoundId)
       .then(round => {
-        debugger
         this.setState({ answers: round.answers, players: round.players })
       })
   }
 
   updatePlayersWhoveAnswered = () => {
+    console.log("Getting players who've answered...")
     API.getRoundAnswers(this.props.currentRoundId)
       .then(round => this.setState({ answers: round.answers, players: round.players }))
   }
@@ -30,13 +30,17 @@ class AnswerWaitingScreen extends Component {
     console.log({"renderHowManyPlayersAnswered": this.state})
     if (answers.length !== players.length) {
       return `${answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR ${players.length - answers.length} TO ANSWER!`
-    } else if (answers.length === players.length) {
+    } else if (answers.length === players.length && answers.length > 0) {
       return `EVERYONE HAS ANSWERED!`
     }
   }
 
   render() {
+    const { answers, players } = this.state
     console.log({"AnswerWaiting render()": this.state})
+    if (answers.length !== players.length && players.length > 0) {
+      setTimeout(this.updatePlayersWhoveAnswered, 1000)
+    } 
     return (
       <div>
         <h1>Answer Waiting Screen</h1>
@@ -48,13 +52,13 @@ class AnswerWaitingScreen extends Component {
         >
           HAS EVERYONE ANSWERED?
         </Button>
-        {this.state.answers.length === this.state.players.length 
+        {answers.length === players.length
           ? <Button
             outline
             color="primary"
             onClick={() => this.props.renderVotingScreen(this.state.answers)}
           >
-            SEE ANSWERS
+          SEE ANSWERS
           </Button>
           : null
         }

@@ -18,11 +18,22 @@ class AnswerScreen extends Component {
 
   render() {
     let { playerAnswerInput } = this.state
+    const { isDasher } = this.props
     return (
       <Fragment>
+        {
+          // maybe just isDasher && <h4>You're the Dasher</h4>
+          isDasher 
+          ? <h4>You're the Dasher</h4>
+          : null
+        }
         <Form>
           <FormGroup>
-            <Label for="playerAnswer">Enter Your Answer Here:</Label>
+            {
+              isDasher 
+              ? <Label for="playerAnswer">Enter the Real Answer Here:</Label>
+              : <Label for="playerAnswer">Enter Your Answer Here:</Label>
+            }
             <Input type="text" name="playerAnswer" id="playerAnswer" onChange={this.handlePlayerAnswerInputChange} />
           </FormGroup>
         </Form>
