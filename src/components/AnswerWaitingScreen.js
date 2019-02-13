@@ -45,22 +45,17 @@ class AnswerWaitingScreen extends Component {
       <div>
         <h1>Answer Waiting Screen</h1>
         <h2>{this.renderHowManyPlayersAnswered()}</h2>
-        <Button
-          outline
-          color="primary"
-          onClick={() => this.updatePlayersWhoveAnswered()}
-        >
-          HAS EVERYONE ANSWERED?
-        </Button>
         {answers.length === players.length
-          ? <Button
-            outline
-            color="primary"
-            onClick={() => this.props.renderVotingScreen(this.state.answers)}
-          >
-          SEE ANSWERS
-          </Button>
-          : null
+          ? (this.props.isDasher 
+            ? <Button
+                outline
+                color="primary"
+                onClick={() => this.props.renderVotingScreen(this.state.answers)}
+              >
+              SEE ANSWERS
+              </Button>
+            : <h4>Which answer do you think is the truth?</h4>)
+          : null 
         }
       </div>
     )
