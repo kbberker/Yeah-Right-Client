@@ -41,9 +41,13 @@ class App extends Component {
         ? (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={true}/>)
         : (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={false}/>)
       case "answer-waiting":
-        return (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen}/>)        
+        return currentDasher.id === player.id 
+        ? (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={true}/>)        
+        : (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={false}/>)
       case "voting":
-        return (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers}/>)
+        return currentDasher.id === player.id 
+        ? (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} calculateScores={this.calculateScores}/>)
+        : (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false}/>)
       default:
         break;
     }
@@ -70,7 +74,6 @@ class App extends Component {
     })
       .then(newDasher => API.setDasher(newDasher))
       .then(resp => {
-        debugger
         this.setState({
           currentDasher: resp.new_dasher,
           gamesPlayers: [...resp.non_dashers, resp.new_dasher]
@@ -81,7 +84,6 @@ class App extends Component {
   joinGame = () => {
     API.hasGameStarted(this.state.game.id)
       .then(gameRounds => {
-        debugger
         gameRounds.length === 0 
           ? alert("Not ready yet.") 
           : this.setState({
@@ -99,15 +101,15 @@ class App extends Component {
   }
 
   renderVotingScreen = (roundsAnswers) => {
-    // TODO Set state.answers from AnswerWaitingScreen
-    // TODO Change currentScreen to voting
-    // TODO Make sure answers and players are sent as props to VotingScreen
     this.setState({
       answers: roundsAnswers,
       currentScreen: "voting"
     })
-    
   }
+
+  calculateScores = (votes) => {
+    debugger
+  } 
 
   render() {
     return (
