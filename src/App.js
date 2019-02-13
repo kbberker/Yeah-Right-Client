@@ -160,6 +160,22 @@ class App extends Component {
     })
   }
 
+  pickNewDasher = (newDasher) => {
+    API.createNewRound(this.state.game.id)
+      .then(round => {
+        console.log({ "App.pickNewDasher round returned": round })
+        this.setState({ currentRound: round, currentScreen: "answer" })
+        return newDasher
+      })
+      .then(newDasher => API.setDasher(newDasher))
+      .then(resp => {
+        this.setState({
+          currentDasher: resp.new_dasher,
+          gamesPlayers: [...resp.non_dashers, resp.new_dasher]
+        })
+      })
+  }
+
   render() {
     return (
       <div>

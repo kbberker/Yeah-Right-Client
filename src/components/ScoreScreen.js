@@ -10,8 +10,6 @@ class ScoreScreen extends Component {
     pickNewDasher: false,
   }
 
-  compn
-
   componentDidMount() {
     const { answers, players, currentDasher } = this.props
     this.setState({
@@ -24,7 +22,6 @@ class ScoreScreen extends Component {
   renderAnswers = () => {
     const { answers, currentDasher, players } = this.state
     return answers.map(answer => {
-      debugger
       if (answer.player_id !== currentDasher.id) {
         let player = players.find(aPlayer => {
           return aPlayer.id === answer.player_id
@@ -67,7 +64,7 @@ class ScoreScreen extends Component {
             })
           }
         </ButtonGroup>
-        <Button color="primary" onClick={() => this.props.togglePickNewDasher()}>Confirm New Dasher</Button>
+        <Button color="primary" onClick={() => this.props.pickNewDasher(this.state.nextDasher)}>Confirm New Dasher</Button>
         <Button color="secondary" onClick={() => this.togglePickNewDasher()}>Go Back To Scores</Button>
       </Fragment>
     )
@@ -85,27 +82,27 @@ class ScoreScreen extends Component {
 
   render() { 
     return (
-      <div>
+      <Fragment>
         {
           this.state.pickNewDasher === false 
-          ? (this.props.is_dasher
-            ? 
-              <Fragment>
-                {this.renderAnswers()}
-                <Button 
-                  color="primary" 
-                  onClick={() => this.togglePickNewDasher()}
-                >
-                  Pick New Dasher
-                </Button>
-              </Fragment>
-            : this.renderAnswers()
-          )
-          : this.renderPickNewDasher()
+          ? null //this.renderAnswers() 
+          : null //this.renderPickNewDasher()
         }
-      </div>
-    )
+        {
+          this.props.is_dasher
+          ? 
+            <Fragment>    
+              <Button 
+                color="primary" 
+                onClick={() => this.togglePickNewDasher()}
+              >
+                Pick New Dasher
+              </Button>
+            </Fragment>
+          : null
+        }
+      </Fragment>
+    )      
   }
-}
 
-export default ScoreScreen;
+export default ScoreScreen
