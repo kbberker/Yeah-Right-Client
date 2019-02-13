@@ -23,7 +23,6 @@ class VotingScreen extends Component {
   shuffleAnswersArray = () => {
     let { answers } = this.props
     let copyOfAnswers = answers.slice(0)
-    debugger
     let ctr = copyOfAnswers.length
     let temp
     let index
@@ -40,7 +39,6 @@ class VotingScreen extends Component {
     copyOfAnswers.map(answer => {
       votes[answer.id] = []
     })
-    debugger
     this.setState({
       answers: copyOfAnswers,
       votes: votes,
@@ -50,10 +48,13 @@ class VotingScreen extends Component {
 
   renderAnswers = () => {
     return this.state.answers.map(answer => {
-      return (<Fragment>
-        <p>{answer.text}</p> 
-        <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
-      </Fragment>)
+      return (
+        <Fragment>
+          <p>{answer.text}</p>
+          <p>Votes: {this.state.votes[answer.id].length}</p>
+          <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
+        </Fragment>
+      )
     })
   }
 
@@ -67,7 +68,10 @@ class VotingScreen extends Component {
             <Button 
               color="primary" 
               onClick={() => this.onCheckboxBtnClick(player)} 
-              active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}>{player.name}</Button>
+              active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}
+            >
+              {player.name}
+            </Button>
           </Fragment>
           })}
         </ButtonGroup>
@@ -96,12 +100,18 @@ class VotingScreen extends Component {
 
   render() {
     return (
-     <Fragment>
-       <h4>Answers are in! Read them out and then add player's votes to the answer</h4>
-       {this.state.showVoteScreen === false ? this.renderAnswers() : this.renderAnswerVotes()}
-     </Fragment>
+    <Fragment>
+      <h4>Answers are in! Read them out and then add player's votes to the answer</h4>
+      {this.state.showVoteScreen === false ? this.renderAnswers() : this.renderAnswerVotes()}
+      <Button
+        color="secondary"
+        onClick={() => this.props.calculateScores(this.state.votes)}
+      >
+      SHOW SCORES  
+      </Button>
+    </Fragment>
     )
   }
 }
- 
+
 export default VotingScreen;
