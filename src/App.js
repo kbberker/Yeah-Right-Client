@@ -43,16 +43,16 @@ class App extends Component {
         : (<AnswerScreen submitAnswer={this.submitAnswer} isDasher={false}/>)
       case "answer-waiting":
         return currentDasher.id === player.id 
-        ? (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={true}/>)        
-        : (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={false}/>)
+        ? (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={true} joinGame={this.joinGame}/>)        
+        : (<AnswerWaitingScreen currentRoundId={this.state.currentRound.id} renderVotingScreen={this.renderVotingScreen} isDasher={false} joinGame={this.joinGame}/>)
       case "voting":
         return currentDasher.id === player.id 
         ? (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} calculateScores={this.calculateScores}/>)
         : (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false} calculateScores={this.calculateScores}/>)
       case "scores":
         return currentDasher.id === player.id 
-        ? (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} currentDasher={this.state.currentDasher}/>)
-        : (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false} currentDasher={this.state.currentDasher}/>)
+          ? (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} currentDasher={this.state.currentDasher} pickNewDasher={this.pickNewDasher}/>)
+        : (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false} currentDasher={this.state.currentDasher} pickNewDasher={this.pickNewDasher}/>)
       default:
         break;
     }

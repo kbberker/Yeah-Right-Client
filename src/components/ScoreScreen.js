@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from 'reactstrap';
 
 
 class ScoreScreen extends Component {
-  state = { 
+  state = {
     answers: [],
     players: [],
     currentDasher: {},
@@ -64,14 +64,15 @@ class ScoreScreen extends Component {
             })
           }
         </ButtonGroup>
+        {console.log(this.props)}
         <Button color="primary" onClick={() => this.props.pickNewDasher(this.state.nextDasher)}>Confirm New Dasher</Button>
         <Button color="secondary" onClick={() => this.togglePickNewDasher()}>Go Back To Scores</Button>
       </Fragment>
     )
   }
 
-  onRadioBtnClick(player){
-    this.setState({nextDasher: player})
+  onRadioBtnClick(player) {
+    this.setState({ nextDasher: player })
   }
 
   togglePickNewDasher = () => {
@@ -84,25 +85,21 @@ class ScoreScreen extends Component {
     return (
       <Fragment>
         {
-          this.state.pickNewDasher === false 
-          ? null //this.renderAnswers() 
-          : null //this.renderPickNewDasher()
+          this.state.pickNewDasher === false
+            ? this.renderAnswers() 
+            : this.renderPickNewDasher()
         }
-        {
-          this.props.is_dasher
-          ? 
-            <Fragment>    
-              <Button 
-                color="primary" 
-                onClick={() => this.togglePickNewDasher()}
-              >
-                Pick New Dasher
-              </Button>
-            </Fragment>
-          : null
-        }
+        <div>
+          <Button
+            color="primary"
+            onClick={() => this.togglePickNewDasher()}
+          >
+            Pick New Dasher
+          </Button>
+        </div>
       </Fragment>
-    )      
+    );
   }
+}
 
-export default ScoreScreen
+export default ScoreScreen;

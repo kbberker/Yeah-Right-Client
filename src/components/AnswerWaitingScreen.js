@@ -54,7 +54,11 @@ class AnswerWaitingScreen extends Component {
               >
               SEE ANSWERS
               </Button>
-            : <h4>Which answer do you think is the truth?</h4>)
+            : <div>
+                <h4>Which answer do you think is the truth?</h4> 
+                <Button color="primary" onClick={() => this.props.joinGame()}>Join New Round</Button>
+              </div>
+            )
           : null 
         }
       </div>
