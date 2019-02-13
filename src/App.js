@@ -6,6 +6,7 @@ import WaitingScreen from "./components/WaitingScreen"
 import AnswerScreen from "./components/AnswerScreen"
 import AnswerWaitingScreen from "./components/AnswerWaitingScreen"
 import VotingScreen from "./components/VotingScreen"
+import ScoreScreen from "./components/ScoreScreen"
 import API from './API'
 
 class App extends Component {
@@ -48,6 +49,10 @@ class App extends Component {
         return currentDasher.id === player.id 
         ? (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} calculateScores={this.calculateScores}/>)
         : (<VotingScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false} calculateScores={this.calculateScores}/>)
+      case "scores":
+        return currentDasher.id === player.id 
+        ? (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={true} currentDasher={this.state.currentDasher}/>)
+        : (<ScoreScreen answers={this.state.answers} players={this.state.gamesPlayers} isDasher={false} currentDasher={this.state.currentDasher}/>)
       default:
         break;
     }
@@ -116,13 +121,13 @@ class App extends Component {
     copyOfGamesPlayers.forEach(player => {
       player.roundScore = 0
     })
-    debugger
+    
     // TODO Find which answer is the dashers.
     const dasherAnswer = answers.find(answer => answer.player_id === copyOfDasher.id)
     // TODO iterate over each answerId in votes
     Object.keys(votes).forEach(answerId => {
       if (parseInt(answerId) === dasherAnswer.id) {
-        debugger
+        
         // If no-one votes for the correct answer, Dasher gets 2 points
         // Otherwise each player who voted for it gets 1 point
         if (votes[answerId].length === 0) {
@@ -136,18 +141,18 @@ class App extends Component {
           })
         }
       } else {
-        debugger
+        
         let score = votes[answerId].length
         // TODO find which player gave that answer
         let playersAnswer = answers.find(answer => answer.id === parseInt(answerId))
         let playerIndex = copyOfGamesPlayers.findIndex(aPlayer => {
-          debugger
+          
           return playersAnswer.player_id === aPlayer.id
         })
         copyOfGamesPlayers[playerIndex].roundScore += score
       }
     }) 
-    debugger
+    
     this.setState({
       gamesPlayers: copyOfGamesPlayers,
       currentDasher: copyOfDasher,
