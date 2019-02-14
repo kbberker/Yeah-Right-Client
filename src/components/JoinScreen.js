@@ -11,12 +11,14 @@ class JoinScreen extends Component {
   }
 
   componentDidMount() {
-    // TODO Add a ternary which checks to see if game already is in the list
-    API.getListOfGames()
-      .then(listOfGames => {
-        const newListOfGames = [...this.state.listOfGames, ...listOfGames]
-        this.setState({ listOfGames: newListOfGames })
-      })
+     this.interval = setInterval(() => {
+      console.log("Getting games")
+      this.getListOfGames()
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   handlePlayerNameInputChange = (e) => {
@@ -54,12 +56,6 @@ class JoinScreen extends Component {
         {this.state.playerNameInput === ""
           ? "Enter your name and available games will appear below"
           : this.renderGameButtons()}
-        <Button
-          outline color="primary"
-          onClick={() => this.getListOfGames()}
-        >
-          UPDATE LIST OF GAMES
-        </Button>
       </Fragment>
     )
   }

@@ -10,8 +10,16 @@ class WaitingScreen extends Component {
   }
 
   componentDidMount() {
-    API.getPlayersInGame(this.props.gameId)
-      .then(players => this.setState({playersInGame: players}))
+    // API.getPlayersInGame(this.props.gameId)
+    //   .then(players => this.setState({playersInGame: players}))
+    this.interval = setInterval(() => {
+      console.log("Getting players")
+      this.updatePlayerList()
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   updatePlayerList = () => {
@@ -31,13 +39,6 @@ class WaitingScreen extends Component {
         <ListGroup>
           {this.renderPlayers()}
         </ListGroup>
-        <Button
-          outline
-          color="primary"
-          onClick={() => this.updatePlayerList()}
-        >
-          UPDATE PLAYER LIST
-        </Button>
         <Button
           outline
           color="primary"
