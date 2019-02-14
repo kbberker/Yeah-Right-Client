@@ -30,3 +30,11 @@
     transform: rotate(360deg);
   }
 }
+
+.button {
+  min-width: 180px;
+}
+
+body {
+  background-color: #FFFFFF
+}

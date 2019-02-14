@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import HomeScreen from "./components/HomeScreen"
 import CreateScreen from "./components/CreateScreen"
 import JoinScreen from "./components/JoinScreen"
@@ -8,6 +8,7 @@ import AnswerWaitingScreen from "./components/AnswerWaitingScreen"
 import VotingScreen from "./components/VotingScreen"
 import ScoreScreen from "./components/ScoreScreen"
 import API from './API'
+
 
 class App extends Component {
   state={
