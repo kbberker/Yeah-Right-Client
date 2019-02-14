@@ -53,6 +53,7 @@ class ScoreScreen extends Component {
               return (
                 <Fragment>
                   <Button
+                    outline
                     color="primary"
                     onClick={() => this.onRadioBtnClick(player)}
                     active={this.state.nextDasher === player}
@@ -65,8 +66,18 @@ class ScoreScreen extends Component {
           }
         </ButtonGroup>
         {console.log(this.props)}
-        <Button color="primary" onClick={() => this.props.pickNewDasher(this.state.nextDasher)}>Confirm New Dasher</Button>
-        <Button color="secondary" onClick={() => this.togglePickNewDasher()}>Go Back To Scores</Button>
+        <Button 
+          color="primary" 
+          onClick={() => this.props.pickNewDasher(this.state.nextDasher)}
+        >
+          Confirm New Dasher
+        </Button>
+        <Button 
+          color="secondary" 
+          onClick={() => this.togglePickNewDasher()}
+        >
+          Go Back To Scores
+        </Button>
       </Fragment>
     )
   }
@@ -89,14 +100,17 @@ class ScoreScreen extends Component {
             ? this.renderAnswers() 
             : this.renderPickNewDasher()
         }
-        <div>
-          <Button
-            color="primary"
-            onClick={() => this.togglePickNewDasher()}
-          >
-            Pick New Dasher
-          </Button>
-        </div>
+        {
+          this.state.pickNewDasher === false
+            ? 
+              <Button
+                color="primary"
+                onClick={() => this.togglePickNewDasher()}
+              >
+                Pick New Dasher
+              </Button>
+            : console.log("Don't")
+        }
       </Fragment>
     );
   }

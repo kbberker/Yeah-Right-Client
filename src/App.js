@@ -91,7 +91,7 @@ class App extends Component {
     API.hasGameStarted(this.state.game.id)
       .then(gameRounds => {
         gameRounds.length === 0 
-          ? alert("Not ready yet.") 
+          ? console.log("Game not started yet")
           : this.setState({
             currentScreen: "answer", 
             currentRound: gameRounds[gameRounds.length - 1], 
@@ -179,10 +179,12 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Yeah Right!</h1>
-        {this.setGameScreen()}
-      </div>
+      <Fragment>
+        <div className="main-div">
+          <h1>Yeah Right!</h1>
+          {this.setGameScreen()}
+        </div>
+      </Fragment>
     )
   }
 }

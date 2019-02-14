@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
 
 // TODO Show a list of answers with a button next to it
@@ -46,16 +46,45 @@ class VotingScreen extends Component {
     })
   }
 
+  // renderAnswers = () => {
+  //   return( 
+  //     this.state.answers.map(answer => {
+  //       return (
+  //         <Fragment>
+  //           <p>{answer.text}</p>
+  //           <p>Votes: {this.state.votes[answer.id].length}</p>
+  //           <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
+  //         </Fragment>
+  //       )
+  //   })
+  //   )
+  // }
+
   renderAnswers = () => {
-    return this.state.answers.map(answer => {
-      return (
-        <Fragment>
-          <p>{answer.text}</p>
-          <p>Votes: {this.state.votes[answer.id].length}</p>
-          <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
-        </Fragment>
-      )
+    return( 
+      this.state.answers.map(answer => {
+        return (
+          <ListGroupItem>
+            <Badge pill> {this.state.votes[answer.id].length}</Badge>
+            <p>{`${answer.text} `}</p>
+            <Button 
+              color="primary" 
+              outline
+              size="sm"
+              className="voting-button"
+              onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
+          </ListGroupItem>
+        )
     })
+    )
+  }
+
+  renderAnswerList = () => {
+    return (
+    <ListGroup>
+      this.renderAnswers()
+    </ListGroup>
+    )
   }
 
   renderAnswerVotes = () => {
@@ -98,17 +127,20 @@ class VotingScreen extends Component {
     })
   }
 
+
   render() {
     return (
     <Fragment>
       <h4>Answers are in! Read them out and then add player's votes to the answer</h4>
       {this.state.showVoteScreen === false ? this.renderAnswers() : this.renderAnswerVotes()}
-      <Button
-        color="secondary"
-        onClick={() => this.props.calculateScores(this.state.votes)}
-      >
-      SHOW SCORES  
-      </Button>
+        {this.state.showVoteScreen === false 
+          ? <Button
+            color="secondary"
+            onClick={() => this.props.calculateScores(this.state.votes)}
+          >
+            SHOW SCORES
+          </Button> 
+          : console.log("Don't show button")}
     </Fragment>
     )
   }

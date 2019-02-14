@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Container, Row, Col } from 'reactstrap';
+import { Button, Container, Media, Col } from 'reactstrap';
+
 
 
 class HomeScreen extends Component {
@@ -9,8 +10,8 @@ class HomeScreen extends Component {
     return (
       <Fragment>
         <div style={{marginTop: "60%"}}>
+          <Media object data-src="../images/yeah-right-logo.svg" />
           <Container>
-            <Row>
               <Col xs="3"></Col>
               <Col xs="6">
                 <Button
@@ -24,9 +25,7 @@ class HomeScreen extends Component {
                 </Button>
               </Col>
               <Col xs="3"></Col>
-            </Row>
             <div style={{marginTop: "10%"}}></div>
-            <Row>
               <Col xs="3"></Col>
               <Col xs="6">
                 <Button
@@ -40,7 +39,6 @@ class HomeScreen extends Component {
             </Button>
               </Col>
               <Col xs="3"></Col>
-            </Row>
           </Container>
         </div>
       </Fragment>

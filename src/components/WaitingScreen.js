@@ -16,10 +16,15 @@ class WaitingScreen extends Component {
       console.log("Getting players")
       this.updatePlayerList()
     }, 1000)
+    this.checkGameStarted = setInterval(() => {
+      console.log("Has game started?")
+      this.props.joinGame()
+    }, 2000)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    clearInterval(this.checkGameStarted)
   }
 
   updatePlayerList = () => {
@@ -45,13 +50,6 @@ class WaitingScreen extends Component {
           onClick={() => this.props.startGame()}
         >
           START GAME
-        </Button>
-        <Button
-          outline
-          color="primary"
-          onClick={() => this.props.joinGame()}
-        >
-          IS GAME READY?
         </Button>
       </div>
     )
