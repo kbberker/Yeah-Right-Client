@@ -95,6 +95,7 @@ class VotingScreen extends Component {
           {this.state.players.map(player => {
           return <Fragment>
             <Button 
+              outline
               color="primary" 
               onClick={() => this.onCheckboxBtnClick(player)} 
               active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}

@@ -29,9 +29,9 @@ class AnswerWaitingScreen extends Component {
     const { answers, players } = this.state
     console.log({"renderHowManyPlayersAnswered": this.state})
     if (answers.length !== players.length) {
-      return `${answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR ${players.length - answers.length} TO ANSWER!`
+      return <h4>{answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR {players.length - answers.length} TO ANSWER!</h4>
     } else if (answers.length === players.length && answers.length > 0) {
-      return `EVERYONE HAS ANSWERED!`
+      return <h4>EVERYONE HAS ANSWERED!</h4>
     }
   }
 
@@ -43,7 +43,6 @@ class AnswerWaitingScreen extends Component {
     } 
     return (
       <div>
-        <h1>Answer Waiting Screen</h1>
         <h2>{this.renderHowManyPlayersAnswered()}</h2>
         {answers.length === players.length
           ? (this.props.isDasher 
@@ -55,7 +54,7 @@ class AnswerWaitingScreen extends Component {
               SEE ANSWERS
               </Button>
             : <div>
-                <h4>Which answer do you think is the truth?</h4> 
+                <h5>Which answer do you think is the truth?</h5> 
                 <Button outline color="primary" onClick={() => this.props.joinGame()}>Join New Round</Button>
               </div>
             )

@@ -19,7 +19,7 @@ class WaitingScreen extends Component {
     this.checkGameStarted = setInterval(() => {
       console.log("Has game started?")
       this.props.joinGame()
-    }, 2000)
+    }, 1000)
   }
 
   componentWillUnmount() {

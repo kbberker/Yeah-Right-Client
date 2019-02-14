@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
 
+// TODO MAKE SAME AS VOTING SCREEN
 
 class ScoreScreen extends Component {
   state = {

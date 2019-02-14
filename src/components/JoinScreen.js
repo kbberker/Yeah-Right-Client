@@ -25,13 +25,11 @@ class JoinScreen extends Component {
     this.setState({ playerNameInput: e.target.value })
   }
 
-
   getListOfGames = () => {
     API.getListOfGames()
       .then(listOfGames => this.setState({listOfGames: listOfGames}))
   }
 
-  // TODO Add button which refreshes game
   renderGameButtons = () => {
     return this.state.listOfGames.map(game => {
       return <Button 
@@ -42,6 +40,14 @@ class JoinScreen extends Component {
         {game.name}
       </Button>
     })
+  }
+
+  renderGameList = () => {
+    return(
+      <ButtonGroup vertical>
+        {this.renderGameButtons()}
+      </ButtonGroup>
+    )
   }
 
   render() {
@@ -55,7 +61,7 @@ class JoinScreen extends Component {
         </Form>
         {this.state.playerNameInput === ""
           ? "Enter your name and available games will appear below"
-          : this.renderGameButtons()}
+          : this.renderGameList()}
       </Fragment>
     )
   }
