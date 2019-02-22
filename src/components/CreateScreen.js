@@ -20,7 +20,7 @@ class CreateScreen extends Component {
   render() {
     let { playerNameInput, gameNameInput } = this.state
     return (
-      <Fragment>
+      <div className="home">
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>
@@ -32,7 +32,7 @@ class CreateScreen extends Component {
           </FormGroup>
         </Form>
         <Button outline color="primary" onClick={() => this.props.createGame(playerNameInput, gameNameInput)}>CREATE GAME</Button>
-      </Fragment>
+      </div>
     )
   }
 
