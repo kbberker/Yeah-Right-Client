@@ -29,7 +29,28 @@ class AnswerWaitingScreen extends Component {
     const { answers, players } = this.state
     console.log({"renderHowManyPlayersAnswered": this.state})
     if (answers.length !== players.length) {
-      return <Fragment>{answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR {players.length - answers.length} TO ANSWER!</Fragment>
+      if (answers.length === 1) {
+        return (
+          <Fragment>
+            <h2>{answers.length} PLAYER HAS ANSWERED.</h2>
+            <h2>
+              STILL WAITING FOR {players.length - answers.length} TO
+              ANSWER!
+            </h2>
+          </Fragment>
+        )
+      } 
+      else {
+        return (
+          <Fragment>
+            <h2>{answers.length} PLAYER HAVE ANSWERED.</h2>
+            <h2>
+              STILL WAITING FOR {players.length - answers.length} TO
+              ANSWER!
+            </h2>
+          </Fragment>
+        )
+      }
     } else if (answers.length === players.length && answers.length > 0) {
       return <Fragment>EVERYONE HAS ANSWERED!</Fragment>
     }
@@ -42,8 +63,8 @@ class AnswerWaitingScreen extends Component {
       setTimeout(this.updatePlayersWhoveAnswered, 1000)
     } 
     return (
-      <div >
-        <h2>{this.renderHowManyPlayersAnswered()}</h2>
+      <div className="content">
+        <Fragment>{this.renderHowManyPlayersAnswered()}</Fragment>
         {answers.length === players.length
           ? (this.props.isDasher 
             ? <Button
