@@ -8,6 +8,7 @@ import AnswerWaitingScreen from "./components/AnswerWaitingScreen"
 import VotingScreen from "./components/VotingScreen"
 import ScoreScreen from "./components/ScoreScreen"
 import API from './API'
+import logo from "./images/yeah-right-logo.svg";
 
 
 class App extends Component {
@@ -180,7 +181,8 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="logo-title">Yeah Right!</h1>
+        <img className="logo-title" src={logo} alt='logo'/>
+        {/* <h1 className="logo-title">Yeah Right!</h1> */}
         {this.setGameScreen()}
       </div>
     )
