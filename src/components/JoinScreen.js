@@ -32,13 +32,15 @@ class JoinScreen extends Component {
 
   renderGameButtons = () => {
     return this.state.listOfGames.map(game => {
-      return <Button 
+      return (
+      <Button 
         outline color="primary" 
         key={game.id}
         onClick={() => this.props.createGame(this.state.playerNameInput, game.name)}
         >
         {game.name}
       </Button>
+      )
     })
   }
 
@@ -52,7 +54,7 @@ class JoinScreen extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div className="home">
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>
@@ -60,9 +62,9 @@ class JoinScreen extends Component {
           </FormGroup>
         </Form>
         {this.state.playerNameInput === ""
-          ? "Enter your name and available games will appear below"
+          ? <h6>Enter your name and available games will appear below</h6>
           : this.renderGameList()}
-      </Fragment>
+      </div>
     )
   }
 }

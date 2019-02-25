@@ -20,7 +20,7 @@ class AnswerScreen extends Component {
     let { playerAnswerInput } = this.state
     const { isDasher } = this.props
     return (
-      <Fragment>
+      <div className="home">
         {
           // maybe just isDasher && <h4>You're the Dasher</h4>
           isDasher 
@@ -37,8 +37,15 @@ class AnswerScreen extends Component {
             <Input type="text" name="playerAnswer" id="playerAnswer" onChange={this.handlePlayerAnswerInputChange} />
           </FormGroup>
         </Form>
-        <Button outline color="primary" onClick={() => this.props.submitAnswer(playerAnswerInput)}>SUBMIT ANSWER</Button>
-      </Fragment>
+        <Button 
+          outline 
+          color="primary" 
+          className="button"
+          onClick={() => this.props.submitAnswer(playerAnswerInput)}
+        >
+          SUBMIT ANSWER
+        </Button>
+      </div>
     )
   }
 

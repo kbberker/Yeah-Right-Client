@@ -40,13 +40,14 @@ class WaitingScreen extends Component {
 
   render() { 
     return (
-      <div>
+      <div className="home">
         <ListGroup>
           {this.renderPlayers()}
         </ListGroup>
         <Button
           outline
           color="primary"
+          className="button"
           onClick={() => this.props.startGame()}
         >
           START GAME

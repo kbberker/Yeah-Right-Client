@@ -19,7 +19,6 @@ class HomeScreen extends Component {
           >
             CREATE GAME
           </Button>
-          <div style={{marginTop: "10%"}}></div>
           <Button
             outline
             color="primary"

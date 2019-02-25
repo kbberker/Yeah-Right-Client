@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Button } from 'reactstrap';
 import API from '../API'
 
@@ -29,9 +29,9 @@ class AnswerWaitingScreen extends Component {
     const { answers, players } = this.state
     console.log({"renderHowManyPlayersAnswered": this.state})
     if (answers.length !== players.length) {
-      return <h4>{answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR {players.length - answers.length} TO ANSWER!</h4>
+      return <Fragment>{answers.length} PLAYERS HAVE ANSWERED. STILL WAITING FOR {players.length - answers.length} TO ANSWER!</Fragment>
     } else if (answers.length === players.length && answers.length > 0) {
-      return <h4>EVERYONE HAS ANSWERED!</h4>
+      return <Fragment>EVERYONE HAS ANSWERED!</Fragment>
     }
   }
 

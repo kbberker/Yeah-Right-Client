@@ -31,7 +31,14 @@ class CreateScreen extends Component {
             <Input type="text" name="gameName" id="gameName" placeholder="West Mansion" onChange={this.handleGameNameInputChange}/>
           </FormGroup>
         </Form>
-        <Button outline color="primary" onClick={() => this.props.createGame(playerNameInput, gameNameInput)}>CREATE GAME</Button>
+        <Button 
+          outline 
+          color="primary" 
+          className="button"
+          onClick={() => this.props.createGame(playerNameInput, gameNameInput)}
+        >
+          CREATE GAME
+        </Button>
       </div>
     )
   }

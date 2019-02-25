@@ -179,12 +179,10 @@ class App extends Component {
 
   render() {
     return (
-      <Fragment>
-        <div className="main-div">
-          <h1>Yeah Right!</h1>
-          {this.setGameScreen()}
-        </div>
-      </Fragment>
+      <div className="container">
+        <h1 className="logo-title">Yeah Right!</h1>
+        {this.setGameScreen()}
+      </div>
     )
   }
 }
