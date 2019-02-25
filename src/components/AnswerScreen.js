@@ -20,7 +20,7 @@ class AnswerScreen extends Component {
     let { playerAnswerInput } = this.state
     const { isDasher } = this.props
     return (
-      <div className="home">
+      <div className="content">
         {
           // maybe just isDasher && <h4>You're the Dasher</h4>
           isDasher 

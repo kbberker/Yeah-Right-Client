@@ -54,7 +54,7 @@ class JoinScreen extends Component {
 
   render() {
     return (
-      <div className="home">
+      <div className="content">
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>

@@ -9,7 +9,7 @@ class HomeScreen extends Component {
   render() { 
     return (
       <Fragment>
-        <div className="home">
+        <div className="content">
           <Button
             outline
             color="primary"

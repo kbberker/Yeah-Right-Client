@@ -20,7 +20,7 @@ class CreateScreen extends Component {
   render() {
     let { playerNameInput, gameNameInput } = this.state
     return (
-      <div className="home">
+      <div className="content">
         <Form>
           <FormGroup>
             <Label for="playerName">Your Name:</Label>

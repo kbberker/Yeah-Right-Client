@@ -42,7 +42,7 @@ class AnswerWaitingScreen extends Component {
       setTimeout(this.updatePlayersWhoveAnswered, 1000)
     } 
     return (
-      <div>
+      <div >
         <h2>{this.renderHowManyPlayersAnswered()}</h2>
         {answers.length === players.length
           ? (this.props.isDasher 

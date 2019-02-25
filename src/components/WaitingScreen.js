@@ -40,7 +40,7 @@ class WaitingScreen extends Component {
 
   render() { 
     return (
-      <div className="home">
+      <div className="content">
         <ListGroup>
           {this.renderPlayers()}
         </ListGroup>
