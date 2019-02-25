@@ -1,47 +1,66 @@
-
 .button {
   min-width: 180px;
+  max-width: 200px;
+  margin-bottom: 10%;
 }
 
 form {
-    padding-bottom: 20%;
+  padding-bottom: 20%;
 }
 
 body {
   /* background-color: #BBF9F5 */
-  background-color: #ffffff
+  background-color: #ffffff;
 }
 
-.main-div {
-    padding: 5%;
-    display: grid;
-    /* grid-template-columns: 20% auto 20%; */
-    grid-template-rows: 10% auto 10%;
-    justify-content: space-around;
-    min-height: 100vh;
+.container {
+  padding: 5%;
+  display: grid;
+  grid-template-columns: 10% 1fr 10%;
+  grid-template-rows: 10% auto 10%;
+  grid-template-areas:
+    "h h h"
+    ". c ."
+    ". . .";
+  justify-content: space-around;
+  min-height: 100vh;
+}
+
+.logo-title {
+  grid-area: h;
+  justify-self: center;
 }
 
 .home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-area: c;
 }
 
-
 .badge-pill {
-      padding: 0.6em;
-    border-radius: 50%;
-    height: 24px;
-    width: 24px;
+  padding: 0.6em;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+}
+
+.list-group {
+  min-width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 10px;
 }
 
 .list-group-item {
   display: flex;
   justify-content: space-around;
-align-items: center;
-position: initial;
-min-height: auto;
-width: 100%;
+  align-items: center;
+  position: initial;
+  min-height: auto;
+  width: 100%;
 }
 
 .list-group-item p {
@@ -50,4 +69,8 @@ width: 100%;
 
 .btn.btn-secondary {
   margin-top: 30px;
+}
+
+.btn-group-vertical {
+  min-width: 90%;
 }
