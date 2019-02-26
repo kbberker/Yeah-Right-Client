@@ -13,10 +13,10 @@ body {
   background-color: #ffffff;
 }
 
-.container {
-  padding: 5%;
+.app-container {
+  padding-top: 5%;
   display: grid;
-  grid-template-columns: 10% 1fr 10%;
+  grid-template-columns: 5% 1fr 5%;
   grid-template-rows: 10% auto 10%;
   grid-template-areas:
     "h h h"
@@ -29,6 +29,7 @@ body {
 .logo-title {
   grid-area: h;
   justify-self: center;
+  max-height: fit-content;
 }
 
 .content {
@@ -44,10 +45,11 @@ body {
   border-radius: 50%;
   height: 24px;
   width: 24px;
+  margin-left: 15%;
 }
 
 .list-group {
-  min-width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -64,7 +66,62 @@ body {
 }
 
 .list-group-item p {
-  width: 60%;
+  margin-top: 5%;
+  margin-left: 1%;
+  width: 95%;
+}
+
+.list-group-item button {
+  max-width: 75%;
+}
+
+.answer-list-item {
+  display: grid;
+  grid-template-columns: 9% auto 12%;
+  align-items: center;
+  justify-items: center;
+  justify-content: normal;
+  position: initial;
+  min-height: auto;
+  width: 100%;
+  padding: 0%;
+}
+
+.score-list-item {
+  display: grid;
+  grid-template-columns: 5% auto 15%;
+  grid-template-rows: 20% 80%;
+  align-items: center;
+  justify-items: center;
+  justify-content: normal;
+  position: initial;
+  min-height: auto;
+  width: 100%;
+  padding: 0%;
+  padding-top: 8px;
+}
+
+.score-name {
+    margin: 0px;
+    margin-top: 0;
+    font-size: 13px;
+    grid-column: 2 / 3;
+    color: blue;
+}
+
+.score-answer {
+  margin: 0;
+  margin-top: 0;
+  grid-column: 2 / 3;
+}
+
+.score-points {
+  margin: 0;
+  margin-top: 0;
+  align-self: center;
+  justify-self: center;
+  width: 50%;
+  text-align: center;
 }
 
 .btn.btn-secondary {
@@ -73,4 +130,5 @@ body {
 
 .btn-group-vertical {
   min-width: 90%;
+  margin-bottom: 15px;
 }

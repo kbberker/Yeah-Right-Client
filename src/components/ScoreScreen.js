@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 
 // TODO MAKE SAME AS VOTING SCREEN
 
@@ -28,27 +28,37 @@ class ScoreScreen extends Component {
           return aPlayer.id === answer.player_id
         })
         return (
-          <Fragment>
-            <p>{answer.text}</p>
-            <Button color="secondary">{`${answer.player.name} ${player.roundScore}`}</Button>
-          </Fragment>
+          <ListGroupItem className="score-list-item">
+            <p className="score-name">{`${answer.player.name}`}</p>
+            <p className="score-answer">{answer.text}</p>
+            <p className="score-points">{`${player.roundScore}`}</p>
+          </ListGroupItem>
         )
       } else {
         return (
-          <Fragment>
-            <p>{answer.text}</p>
-            <Button color="primary">{`${answer.player.name} ${currentDasher.roundScore}`}</Button>
-          </Fragment>
+          <ListGroupItem className="score-list-item">
+            <p className="score-name">{`${answer.player.name}`}</p>
+            <p className="score-answer">{answer.text}</p>
+            <p className="score-points">{`${currentDasher.roundScore}`}</p>
+          </ListGroupItem>
         )
       }
     })
+  }
+
+  renderAnswerList = () => {
+    return (
+      <ListGroup>
+        {this.renderAnswers()}
+      </ListGroup>
+    )
   }
 
   renderPickNewDasher = () => {
     return (
       <Fragment>
         <h6>Pick the player on your left to be the next dasher!</h6>
-        <ButtonGroup>
+        <ButtonGroup vertical>
           {
             this.state.players.map(player => {
               return (
@@ -95,10 +105,10 @@ class ScoreScreen extends Component {
 
   render() { 
     return (
-      <Fragment>
+      <div className="content">
         {
           this.state.pickNewDasher === false
-            ? this.renderAnswers() 
+            ? this.renderAnswerList() 
             : this.renderPickNewDasher()
         }
         {
@@ -112,7 +122,7 @@ class ScoreScreen extends Component {
               </Button>
             : console.log("Don't")
         }
-      </Fragment>
+      </div>
     );
   }
 }

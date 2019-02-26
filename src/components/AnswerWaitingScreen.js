@@ -52,7 +52,7 @@ class AnswerWaitingScreen extends Component {
         )
       }
     } else if (answers.length === players.length && answers.length > 0) {
-      return <Fragment>EVERYONE HAS ANSWERED!</Fragment>
+      return <h5>EVERYONE HAS ANSWERED!</h5>
     }
   }
 
@@ -74,7 +74,7 @@ class AnswerWaitingScreen extends Component {
               >
               SEE ANSWERS
               </Button>
-            : <div>
+            : <div className="content">
                 <h5>Which answer do you think is the truth?</h5> 
                 <Button outline color="primary" onClick={() => this.props.joinGame()}>Join New Round</Button>
               </div>

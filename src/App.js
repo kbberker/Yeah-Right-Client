@@ -180,7 +180,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="app-container">
         <img className="logo-title" src={logo} alt='logo'/>
         {/* <h1 className="logo-title">Yeah Right!</h1> */}
         {this.setGameScreen()}

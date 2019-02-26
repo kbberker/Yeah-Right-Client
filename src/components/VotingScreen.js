@@ -64,7 +64,7 @@ class VotingScreen extends Component {
     return( 
       this.state.answers.map(answer => {
         return (
-          <ListGroupItem>
+          <ListGroupItem className="answer-list-item">
             <Badge pill> {this.state.votes[answer.id].length}</Badge>
             <p>{`${answer.text} `}</p>
             <Button 
@@ -72,7 +72,7 @@ class VotingScreen extends Component {
               outline
               size="sm"
               className="voting-button"
-              onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
+              onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>+</Button>
           </ListGroupItem>
         )
     })
@@ -82,7 +82,7 @@ class VotingScreen extends Component {
   renderAnswerList = () => {
     return (
     <ListGroup>
-      this.renderAnswers()
+      {this.renderAnswers()}
     </ListGroup>
     )
   }
@@ -131,9 +131,9 @@ class VotingScreen extends Component {
 
   render() {
     return (
-    <Fragment>
+    <div className="content">
       <h4>Answers are in! Read them out and then add player's votes to the answer</h4>
-      {this.state.showVoteScreen === false ? this.renderAnswers() : this.renderAnswerVotes()}
+      {this.state.showVoteScreen === false ? this.renderAnswerList() : this.renderAnswerVotes()}
         {this.state.showVoteScreen === false 
           ? <Button
             color="secondary"
@@ -142,7 +142,7 @@ class VotingScreen extends Component {
             SHOW SCORES
           </Button> 
           : console.log("Don't show button")}
-    </Fragment>
+    </div>
     )
   }
 }
