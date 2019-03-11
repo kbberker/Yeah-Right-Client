@@ -1,7 +1,13 @@
+/* cyan: #BBF9F5 */
+/* purple: #8416EB */
+
 .button {
   min-width: 180px;
   max-width: 200px;
   margin-bottom: 10%;
+  border-color: #8416EB;
+  color: #8416EB;
+  border-width: 2px;
 }
 
 form {
@@ -9,7 +15,6 @@ form {
 }
 
 body {
-  /* background-color: #BBF9F5 */
   background-color: #ffffff;
 }
 
@@ -24,12 +29,14 @@ body {
     ". . .";
   justify-content: space-around;
   min-height: 100vh;
+  /* background-color: #941818; */
 }
 
 .logo-title {
   grid-area: h;
   justify-self: center;
-  max-height: fit-content;
+  min-height: 100%;
+  max-height: 20vh;
 }
 
 .content {
@@ -77,7 +84,7 @@ body {
 
 .answer-list-item {
   display: grid;
-  grid-template-columns: 9% auto 12%;
+  grid-template-columns: 9% auto 20%;
   align-items: center;
   justify-items: center;
   justify-content: normal;
@@ -101,12 +108,16 @@ body {
   padding-top: 8px;
 }
 
+.score-list-item p {
+  margin-top: 0;
+}
+
 .score-name {
     margin: 0px;
     margin-top: 0;
     font-size: 13px;
     grid-column: 2 / 3;
-    color: blue;
+    color: #8416EB;
 }
 
 .score-answer {
@@ -122,6 +133,16 @@ body {
   justify-self: center;
   width: 50%;
   text-align: center;
+}
+
+.voting-button {
+  height: 10vw;
+  max-height: 50px;}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #8416EB;
+  border-color: #8416EB;
 }
 
 .btn.btn-secondary {

@@ -78,7 +78,7 @@ class ScoreScreen extends Component {
         </ButtonGroup>
         {console.log(this.props)}
         <Button 
-          color="primary" 
+          color="secondary" 
           onClick={() => this.props.pickNewDasher(this.state.nextDasher)}
         >
           Confirm New Dasher
@@ -115,7 +115,7 @@ class ScoreScreen extends Component {
           this.state.pickNewDasher === false
             ? 
               <Button
-                color="primary"
+                color="secondary"
                 onClick={() => this.togglePickNewDasher()}
               >
                 Pick New Dasher

@@ -69,6 +69,7 @@ class AnswerWaitingScreen extends Component {
           ? (this.props.isDasher 
             ? <Button
                 outline
+                className="button"
                 color="primary"
                 onClick={() => this.props.renderVotingScreen(this.state.answers)}
               >
@@ -76,7 +77,14 @@ class AnswerWaitingScreen extends Component {
               </Button>
             : <div className="content">
                 <h5>Which answer do you think is the truth?</h5> 
-                <Button outline color="primary" onClick={() => this.props.joinGame()}>Join New Round</Button>
+                <Button 
+                  outline 
+                  className="button"
+                  color="primary" 
+                  onClick={() => this.props.joinGame()}
+                >
+                  Join New Round
+                </Button>
               </div>
             )
           : null 

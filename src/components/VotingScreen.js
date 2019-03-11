@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, ButtonGroup, ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import plusbtn from "../images/plus-button.svg";
+
 
 
 // TODO Show a list of answers with a button next to it
@@ -46,19 +48,6 @@ class VotingScreen extends Component {
     })
   }
 
-  // renderAnswers = () => {
-  //   return( 
-  //     this.state.answers.map(answer => {
-  //       return (
-  //         <Fragment>
-  //           <p>{answer.text}</p>
-  //           <p>Votes: {this.state.votes[answer.id].length}</p>
-  //           <Button color="primary" onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>Add Votes</Button>
-  //         </Fragment>
-  //       )
-  //   })
-  //   )
-  // }
 
   renderAnswers = () => {
     return( 
@@ -67,12 +56,12 @@ class VotingScreen extends Component {
           <ListGroupItem className="answer-list-item">
             <Badge pill> {this.state.votes[answer.id].length}</Badge>
             <p>{`${answer.text} `}</p>
-            <Button 
-              color="primary" 
-              outline
-              size="sm"
+            <img 
+              src={plusbtn} 
+              alt='add vote'
               className="voting-button"
-              onClick={() => this.toggleAddVotesToAnswerScreen(answer)}>+</Button>
+              onClick={() => this.toggleAddVotesToAnswerScreen(answer)}
+            />
           </ListGroupItem>
         )
     })
@@ -132,7 +121,8 @@ class VotingScreen extends Component {
   render() {
     return (
     <div className="content">
-      <h4>Answers are in! Read them out and then add player's votes to the answer</h4>
+      <h4>ANSWERS ARE IN!</h4> 
+      <p>Read them out and then add player's votes to the answer</p>
       {this.state.showVoteScreen === false ? this.renderAnswerList() : this.renderAnswerVotes()}
         {this.state.showVoteScreen === false 
           ? <Button
