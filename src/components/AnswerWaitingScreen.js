@@ -60,7 +60,7 @@ class AnswerWaitingScreen extends Component {
     const { answers, players } = this.state
     console.log({"AnswerWaiting render()": this.state})
     if (answers.length !== players.length && players.length > 0) {
-      setTimeout(this.updatePlayersWhoveAnswered, 1000)
+      setTimeout(this.updatePlayersWhoveAnswered, 100)
     } 
     return (
       <div className="content">

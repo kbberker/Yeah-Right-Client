@@ -15,11 +15,11 @@ class WaitingScreen extends Component {
     this.interval = setInterval(() => {
       console.log("Getting players")
       this.updatePlayerList()
-    }, 1000)
+    }, 500)
     this.checkGameStarted = setInterval(() => {
       console.log("Has game started?")
       this.props.joinGame()
-    }, 1000)
+    }, 500)
   }
 
   componentWillUnmount() {
