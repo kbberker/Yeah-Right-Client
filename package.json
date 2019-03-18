@@ -10,9 +10,9 @@
     "reactstrap": "^7.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-env start",
+    "build": "react-app-env build",
+    "test": "react-app-env test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -23,5 +23,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-app-env": "^1.2.3"
+  }
 }
