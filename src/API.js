@@ -1,11 +1,11 @@
 class API {
   static init() {
-    this.baseURL = 'http://localhost:3001'
+    this.baseURL = process.env.REACT_APP_API_URL
     this.signinURL = this.baseURL + '/signin'
   }
   
   static createNewRound(gameId) {
-    return fetch("http://localhost:3001/api/v1/rounds", {
+    return fetch(this.baseURL + "/rounds", {
       method: "POST",
       headers: { 'Content-Type': "application/json" },
       body: JSON.stringify({
@@ -16,7 +16,7 @@ class API {
 
   static createPlayerAndJoinGame(playerName, gameName) {
     console.log({"createPlayerAndJoinGame": [playerName, gameName]})
-    return fetch("http://localhost:3001/api/v1/players", {
+    return fetch(this.baseURL + "/players", {
       method: "POST",
       headers: { 'Content-Type': "application/json"},
       body: JSON.stringify({
@@ -27,12 +27,12 @@ class API {
   }
   
   static getListOfGames() {
-    return fetch("http://localhost:3001/api/v1/games")
+    return fetch(this.baseURL + "/games")
       .then(resp => resp.json())
   }
 
   static getPlayersInGame(gameId) {
-    return fetch("http://localhost:3001/api/v1/games_players", {
+    return fetch(this.baseURL + "/games_players", {
       method: "POST",
       headers: { 'Content-Type': "application/json" },
       body: JSON.stringify({ game_id: gameId })
@@ -41,17 +41,17 @@ class API {
   }
 
   static getRoundAnswers(roundId) {
-    return fetch(`http://localhost:3001/api/v1/rounds/${roundId}`)
+    return fetch(`${this.baseURL}/rounds/${roundId}`)
       .then(resp => resp.json())
   }
 
   static hasGameStarted(gameId) {
-    return fetch(`http://localhost:3001/api/v1/games/${gameId}`)
+    return fetch(`${this.baseURL}/games/${gameId}`)
       .then(resp => resp.json())
   }
 
   static setDasher(newDasher) {
-    return fetch("http://localhost:3001/api/v1/set_dasher", {
+    return fetch(this.baseURL + "/set_dasher", {
       method: "POST",
       headers: { 'Content-Type': "application/json" },
       body: JSON.stringify({
@@ -61,7 +61,7 @@ class API {
   }
 
   static submitAnswer(answerText, roundId, playerId) {
-    return fetch("http://localhost:3001/api/v1/answers", {
+    return fetch(this.baseURL + "/answers", {
       method: "POST",
       headers: { 'Content-Type': "application/json" },
       body: JSON.stringify({
