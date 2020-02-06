@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import HomeScreen from "./components/HomeScreen";
 import CreateScreen from "./components/CreateScreen";
 import JoinScreen from "./components/JoinScreen";
@@ -50,8 +50,8 @@ class App extends Component {
         return currentDasher.id === player.id ? (
           <AnswerScreen submitAnswer={this.submitAnswer} isDasher={true} />
         ) : (
-          <AnswerScreen submitAnswer={this.submitAnswer} isDasher={false} />
-        );
+            <AnswerScreen submitAnswer={this.submitAnswer} isDasher={false} />
+          );
       case "answer-waiting":
         return currentDasher.id === player.id ? (
           <AnswerWaitingScreen
@@ -61,13 +61,13 @@ class App extends Component {
             joinGame={this.joinGame}
           />
         ) : (
-          <AnswerWaitingScreen
-            currentRoundId={this.state.currentRound.id}
-            renderVotingScreen={this.renderVotingScreen}
-            isDasher={false}
-            joinGame={this.joinGame}
-          />
-        );
+            <AnswerWaitingScreen
+              currentRoundId={this.state.currentRound.id}
+              renderVotingScreen={this.renderVotingScreen}
+              isDasher={false}
+              joinGame={this.joinGame}
+            />
+          );
       case "voting":
         return currentDasher.id === player.id ? (
           <VotingScreen
@@ -77,13 +77,13 @@ class App extends Component {
             calculateScores={this.calculateScores}
           />
         ) : (
-          <VotingScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
-            isDasher={false}
-            calculateScores={this.calculateScores}
-          />
-        );
+            <VotingScreen
+              answers={this.state.answers}
+              players={this.state.gamesPlayers}
+              isDasher={false}
+              calculateScores={this.calculateScores}
+            />
+          );
       case "scores":
         return currentDasher.id === player.id ? (
           <ScoreScreen
@@ -94,14 +94,14 @@ class App extends Component {
             pickNewDasher={this.pickNewDasher}
           />
         ) : (
-          <ScoreScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
-            isDasher={false}
-            currentDasher={this.state.currentDasher}
-            pickNewDasher={this.pickNewDasher}
-          />
-        );
+            <ScoreScreen
+              answers={this.state.answers}
+              players={this.state.gamesPlayers}
+              isDasher={false}
+              currentDasher={this.state.currentDasher}
+              pickNewDasher={this.pickNewDasher}
+            />
+          );
       default:
         break;
     }
@@ -144,13 +144,13 @@ class App extends Component {
       gameRounds.length === 0
         ? console.log("Game not started yet")
         : this.setState({
-            currentScreen: "answer",
-            currentRound: gameRounds[gameRounds.length - 1],
-            gamesPlayers: gameRounds[gameRounds.length - 1].players,
-            currentDasher: gameRounds[gameRounds.length - 1].players.filter(
-              player => player.is_dasher === true
-            )[0]
-          });
+          currentScreen: "answer",
+          currentRound: gameRounds[gameRounds.length - 1],
+          gamesPlayers: gameRounds[gameRounds.length - 1].players,
+          currentDasher: gameRounds[gameRounds.length - 1].players.filter(
+            player => player.is_dasher === true
+          )[0]
+        });
     });
   };
 
