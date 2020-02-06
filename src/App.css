@@ -5,8 +5,8 @@
   min-width: 180px;
   max-width: 200px;
   margin-bottom: 10%;
-  border-color: #8416EB;
-  color: #8416EB;
+  border-color: #8416eb;
+  color: #8416eb;
   border-width: 2px;
 }
 
@@ -32,11 +32,14 @@ body {
   /* background-color: #941818; */
 }
 
-.logo-title {
+.logo-container {
   grid-area: h;
+}
+
+.logo-title {
   justify-self: center;
   min-height: 100%;
-  max-height: 20vh;
+  max-height: 100%;
 }
 
 .content {
@@ -113,11 +116,11 @@ body {
 }
 
 .score-name {
-    margin: 0px;
-    margin-top: 0;
-    font-size: 13px;
-    grid-column: 2 / 3;
-    color: #8416EB;
+  margin: 0px;
+  margin-top: 0;
+  font-size: 13px;
+  grid-column: 2 / 3;
+  color: #8416eb;
 }
 
 .score-answer {
@@ -137,12 +140,13 @@ body {
 
 .voting-button {
   height: 10vw;
-  max-height: 50px;}
+  max-height: 50px;
+}
 
 .btn-secondary {
   color: #fff;
-  background-color: #8416EB;
-  border-color: #8416EB;
+  background-color: #8416eb;
+  border-color: #8416eb;
 }
 
 .btn.btn-secondary {
