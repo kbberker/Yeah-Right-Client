@@ -23,5 +23,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    "react/state-in-constructor": [1, 'never']
   },
 };
