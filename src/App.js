@@ -22,9 +22,6 @@ class App extends Component {
   };
 
   componentDidUpdate() {
-    console.log({
-      'componentDidUpdate before setGameScreen': this.state.currentScreen,
-    });
     this.setGameScreen();
   }
 
