@@ -14,10 +14,6 @@ class AnswerScreen extends Component {
     this.setState({ playerAnswerInput: e.target.value });
   }
 
-  handleGameNameInputChange = (e) => {
-    this.setState({ gameNameInput: e.target.value });
-  }
-
   render() {
     const { playerAnswerInput } = this.state;
     const { isDasher } = this.props;
@@ -26,7 +22,7 @@ class AnswerScreen extends Component {
         {
           // maybe just isDasher && <h4>You're the Dasher</h4>
           isDasher
-            ? <h4>You're the Dasher</h4>
+            ? <h4>You are the Dasher</h4>
             : null
         }
         <Form>
