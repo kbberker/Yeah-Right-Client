@@ -26,9 +26,11 @@ class App extends Component {
   }
 
   setGameScreen = () => {
-    const { currentDasher, player } = this.state;
+    const {
+      currentDasher, player, currentScreen, game, currentRound, answers, gamesPlayers,
+    } = this.state;
     // ? Might be better to change this based on an argument then state
-    switch (this.state.currentScreen) {
+    switch (currentScreen) {
       case 'home':
         return <HomeScreen createOrJoin={this.changeGameScreenState} />;
       case 'create':
@@ -38,7 +40,7 @@ class App extends Component {
       case 'waiting':
         return (
           <WaitingScreen
-            gameId={this.state.game.id}
+            gameId={game.id}
             startGame={this.startGame}
             joinGame={this.joinGame}
           />
@@ -52,14 +54,14 @@ class App extends Component {
       case 'answer-waiting':
         return currentDasher.id === player.id ? (
           <AnswerWaitingScreen
-            currentRoundId={this.state.currentRound.id}
+            currentRoundId={currentRound.id}
             renderVotingScreen={this.renderVotingScreen}
             isDasher
             joinGame={this.joinGame}
           />
         ) : (
           <AnswerWaitingScreen
-            currentRoundId={this.state.currentRound.id}
+            currentRoundId={currentRound.id}
             renderVotingScreen={this.renderVotingScreen}
             isDasher={false}
             joinGame={this.joinGame}
@@ -68,15 +70,15 @@ class App extends Component {
       case 'voting':
         return currentDasher.id === player.id ? (
           <VotingScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
+            answers={answers}
+            players={gamesPlayers}
             isDasher
             calculateScores={this.calculateScores}
           />
         ) : (
           <VotingScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
+            answers={answers}
+            players={gamesPlayers}
             isDasher={false}
             calculateScores={this.calculateScores}
           />
@@ -84,18 +86,18 @@ class App extends Component {
       case 'scores':
         return currentDasher.id === player.id ? (
           <ScoreScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
+            answers={answers}
+            players={gamesPlayers}
             isDasher
-            currentDasher={this.state.currentDasher}
+            currentDasher={currentDasher}
             pickNewDasher={this.pickNewDasher}
           />
         ) : (
           <ScoreScreen
-            answers={this.state.answers}
-            players={this.state.gamesPlayers}
+            answers={answers}
+            players={gamesPlayers}
             isDasher={false}
-            currentDasher={this.state.currentDasher}
+            currentDasher={currentDasher}
             pickNewDasher={this.pickNewDasher}
           />
         );
@@ -119,7 +121,8 @@ class App extends Component {
   };
 
   startGame = () => {
-    API.createNewRound(this.state.game.id)
+    const { game } = this.state;
+    API.createNewRound(game.id)
       .then((round) => {
         console.log({ 'App.startGame round returned': round });
         const newDasher = round.players[Math.floor(Math.random() * round.players.length)];
@@ -136,10 +139,10 @@ class App extends Component {
   };
 
   joinGame = () => {
-    API.hasGameStarted(this.state.game.id).then((gameRounds) => {
-      gameRounds.length === 0
-        ? console.log('Game not started yet')
-        : this.setState({
+    const { game } = this.state;
+    API.hasGameStarted(game.id).then((gameRounds) => {
+      if (gameRounds.length > 0) {
+        this.setState({
           currentScreen: 'answer',
           currentRound: gameRounds[gameRounds.length - 1],
           gamesPlayers: gameRounds[gameRounds.length - 1].players,
@@ -147,14 +150,18 @@ class App extends Component {
             (player) => player.is_dasher === true,
           )[0],
         });
+      } else {
+        console.log('Game not started yet');
+      }
     });
   };
 
   submitAnswer = (answerText) => {
+    const { currentRound, player } = this.state;
     API.submitAnswer(
       answerText,
-      this.state.currentRound.id,
-      this.state.player.id,
+      currentRound.id,
+      player.id,
     ).then(this.setState({ currentScreen: 'answer-waiting' }));
   };
 
@@ -169,19 +176,17 @@ class App extends Component {
     const { answers, currentDasher, gamesPlayers } = this.state;
     const copyOfDasher = JSON.parse(JSON.stringify(currentDasher));
     const copyOfGamesPlayers = JSON.parse(JSON.stringify(gamesPlayers));
-    // TODO Set everyone's roundScore to 0
     copyOfDasher.roundScore = 0;
     copyOfGamesPlayers.forEach((player) => {
       player.roundScore = 0;
     });
 
-    // TODO Find which answer is the dashers.
     const dasherAnswer = answers.find(
       (answer) => answer.player_id === copyOfDasher.id,
     );
-    // TODO iterate over each answerId in votes
+
     Object.keys(votes).forEach((answerId) => {
-      if (parseInt(answerId) === dasherAnswer.id) {
+      if (parseInt(answerId, 10) === dasherAnswer.id) {
         // If no-one votes for the correct answer, Dasher gets 2 points
         // Otherwise each player who voted for it gets 1 point
         if (votes[answerId].length === 0) {
@@ -194,11 +199,12 @@ class App extends Component {
         }
       } else {
         const score = votes[answerId].length;
-        // TODO find which player gave that answer
         const playersAnswer = answers.find(
-          (answer) => answer.id === parseInt(answerId),
+          (answer) => answer.id === parseInt(answerId, 10),
         );
-        const playerIndex = copyOfGamesPlayers.findIndex((aPlayer) => playersAnswer.player_id === aPlayer.id);
+        const playerIndex = copyOfGamesPlayers.findIndex(
+          (aPlayer) => playersAnswer.player_id === aPlayer.id,
+        );
         copyOfGamesPlayers[playerIndex].roundScore += score;
       }
     });
@@ -211,13 +217,14 @@ class App extends Component {
   };
 
   pickNewDasher = (newDasher) => {
-    API.createNewRound(this.state.game.id)
+    const { game } = this.state;
+    API.createNewRound(game.id)
       .then((round) => {
         console.log({ 'App.pickNewDasher round returned': round });
         this.setState({ currentRound: round, currentScreen: 'answer' });
         return newDasher;
       })
-      .then((newDasher) => API.setDasher(newDasher))
+      .then(() => API.setDasher(newDasher))
       .then((resp) => {
         this.setState({
           currentDasher: resp.new_dasher,
