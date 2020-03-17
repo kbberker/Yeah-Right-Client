@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -16,7 +17,7 @@ class AnswerScreen extends Component {
 
   render() {
     const { playerAnswerInput } = this.state;
-    const { isDasher } = this.props;
+    const { isDasher, submitAnswer } = this.props;
     return (
       <div className="content">
         {
@@ -39,7 +40,7 @@ class AnswerScreen extends Component {
           outline
           color="primary"
           className="button"
-          onClick={() => this.props.submitAnswer(playerAnswerInput)}
+          onClick={() => submitAnswer(playerAnswerInput)}
         >
           SUBMIT ANSWER
         </Button>
@@ -47,5 +48,15 @@ class AnswerScreen extends Component {
     );
   }
 }
+
+AnswerScreen.defaultProps = {
+  isDasher: false,
+  submitAnswer: () => null,
+};
+
+AnswerScreen.propTypes = {
+  isDasher: PropTypes.node,
+  submitAnswer: PropTypes.func,
+};
 
 export default AnswerScreen;
