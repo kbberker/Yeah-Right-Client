@@ -1,19 +1,21 @@
-import React, { Component, Fragment } from 'react'
-import { Button, Container, Media, Col } from 'reactstrap';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
 
 
 class HomeScreen extends Component {
   state={}
 
-  render() { 
+
+  render() {
+    const { createOrJoin } = this.props;
     return (
-      <Fragment>
+      <>
         <div className="content">
           <Button
             outline
             color="primary"
-            onClick={() => this.props.createOrJoin("create")}
+            onClick={() => createOrJoin('create')}
             size="lg"
             className="button"
           >
@@ -22,16 +24,24 @@ class HomeScreen extends Component {
           <Button
             outline
             color="primary"
-            onClick={() => this.props.createOrJoin("join")}
+            onClick={() => createOrJoin('join')}
             size="lg"
             className="button"
           >
             JOIN GAME
           </Button>
         </div>
-      </Fragment>
-    )
+      </>
+    );
   }
 }
+
+HomeScreen.defaultProps = {
+  createOrJoin: () => null,
+};
+
+HomeScreen.propTypes = {
+  createOrJoin: PropTypes.func,
+};
 
 export default HomeScreen;
