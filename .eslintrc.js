@@ -3,11 +3,8 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  parser: "babel-eslint",
+  extends: ['plugin:react/recommended', 'airbnb'],
+  parser: 'babel-eslint',
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -19,10 +16,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
-    "react/state-in-constructor": [1, 'never']
+    'react/state-in-constructor': [1, 'never'],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };
