@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes, { string } from 'prop-types';
 import {
-  Button, ButtonGroup, ListGroup, ListGroupItem, Badge,
+  Button,
+  ButtonGroup,
+  ListGroup,
+  ListGroupItem,
+  Badge,
 } from 'reactstrap';
 import plusbtn from '../images/plus-button.svg';
-
 
 // TODO Show a list of answers with a button next to it
 // TODO When button is pressed a modal appears with tick boxes for all players in game
 // TODO A tick will signify a player voted for a particular answer
 
-
 class VotingScreen extends Component {
-  state={
+  state = {
     answers: [],
     showVoteScreen: false,
     answerToVoteOn: {},
     votes: {},
     players: [],
-  }
+  };
 
   componentDidMount() {
     this.shuffleAnswersArray();
@@ -40,7 +42,7 @@ class VotingScreen extends Component {
       copyOfAnswers[index] = temp;
     }
 
-    copyOfAnswers.map((answer) => {
+    copyOfAnswers.foreach((answer) => {
       votes[answer.id] = [];
     });
 
@@ -49,8 +51,7 @@ class VotingScreen extends Component {
       votes,
       players,
     });
-  }
-
+  };
 
   renderAnswers = () => {
     const { answers, votes } = this.state;
@@ -71,38 +72,43 @@ class VotingScreen extends Component {
         />
       </ListGroupItem>
     ));
-  }
+  };
 
-  renderAnswerList = () => (
-    <ListGroup>
-      {this.renderAnswers()}
-    </ListGroup>
-  )
+  renderAnswerList = () => <ListGroup>{this.renderAnswers()}</ListGroup>;
 
   renderAnswerVotes = () => {
-    const { answerToVoteOn } = this.state;
+    const { answerToVoteOn, players, votes } = this.state;
+    return (
       <>
         <h6>
           Votes for:
           {' '}
-          {`${this.state.answerToVoteOn.text}`}
+          {`${answerToVoteOn.text}`}
         </h6>
         <ButtonGroup>
-          {this.state.players.map((player) => (
+          {players.map((player) => (
             <>
               <Button
                 outline
                 color="primary"
                 onClick={() => this.onCheckboxBtnClick(player)}
-                active={this.state.votes[this.state.answerToVoteOn.id].includes(player)}
+                active={votes[answerToVoteOn.id].includes(
+                  player,
+                )}
               >
                 {player.name}
               </Button>
             </>
           ))}
         </ButtonGroup>
-        <Button color="secondary" onClick={() => this.toggleAddVotesToAnswerScreen(this.state.answerToVoteOn)}>Go Back To Answers</Button>
-      </>;
+        <Button
+          color="secondary"
+          onClick={() => this.toggleAddVotesToAnswerScreen(answerToVoteOn)}
+        >
+          Go Back To Answers
+        </Button>
+      </>
+    );
   };
 
   onCheckboxBtnClick = (selectedPlayer) => {
@@ -113,8 +119,10 @@ class VotingScreen extends Component {
     } else {
       votes[answerToVoteOn.id].splice(index, 1);
     }
-    this.setState({ votes: { ...votes, [answerToVoteOn.id]: votes[answerToVoteOn.id] } });
-  }
+    this.setState({
+      votes: { ...votes, [answerToVoteOn.id]: votes[answerToVoteOn.id] },
+    });
+  };
 
   toggleAddVotesToAnswerScreen = (answer) => {
     const { showVoteScreen } = this.state;
@@ -122,8 +130,7 @@ class VotingScreen extends Component {
       answerToVoteOn: answer,
       showVoteScreen: !showVoteScreen,
     });
-  }
-
+  };
 
   render() {
     const { showVoteScreen, votes } = this.state;
@@ -132,17 +139,16 @@ class VotingScreen extends Component {
       <div className="content">
         <h4>ANSWERS ARE IN!</h4>
         <p>Read them out and then add player&apos;s votes to the answer</p>
-        {showVoteScreen === false ? this.renderAnswerList() : this.renderAnswerVotes()}
         {showVoteScreen === false
-          ? (
-            <Button
-              color="secondary"
-              onClick={() => calculateScores(votes)}
-            >
-              SHOW SCORES
-            </Button>
-          )
-          : console.log("Don't show button")}
+          ? this.renderAnswerList()
+          : this.renderAnswerVotes()}
+        {showVoteScreen === false ? (
+          <Button color="secondary" onClick={() => calculateScores(votes)}>
+            SHOW SCORES
+          </Button>
+        ) : (
+          console.log("Don't show button")
+        )}
       </div>
     );
   }
